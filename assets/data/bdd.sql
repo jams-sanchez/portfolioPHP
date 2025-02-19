@@ -23,17 +23,17 @@ CREATE TABLE projets (
     description VARCHAR(255) NOT NULL,
     lien VARCHAR(255),
     image_id INT,
-    FOREIGN KEY (image_id) REFERENCES images(id)
+    FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- CREATION TABLE LIAISON PROJET_TECH
+-- CREATION TABLE ASSOCIATIVE PROJET_TECH
 
 CREATE TABLE projets_tech (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     projets_id INT,
     tech_id INT, 
-    FOREIGN KEY (projets_id) REFERENCES projets(id),
-    FOREIGN KEY (tech_id) REFERENCES tech(id)
+    FOREIGN KEY (projets_id) REFERENCES projets(id) ON UPDATE CASCADE,
+    FOREIGN KEY (tech_id) REFERENCES tech(id) ON UPDATE CASCADE
 );
 
 -- CREATION TABLE TECH
@@ -43,8 +43,8 @@ CREATE TABLE tech (
     nom VARCHAR(50) NOT NULL,
     image_id INT,
     tech_cat_id INT,
-    FOREIGN KEY (image_id) REFERENCES images(id),
-    FOREIGN KEY (tech_cat_id) REFERENCES tech_cat(id)
+    FOREIGN KEY (image_id) REFERENCES images(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tech_cat_id) REFERENCES tech_cat(id) ON UPDATE CASCADE
 );
 
 -- CREATION TABLE TECH_CAT
@@ -59,7 +59,7 @@ CREATE TABLE tech_cat (
 CREATE TABLE images (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
-    type VARCHAR(55) NOT NULL,
+    type MIME VARCHAR(55) NOT NULL,
     taille INT,
     image BLOB NOT NULL
 );
