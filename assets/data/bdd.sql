@@ -1,0 +1,66 @@
+-- EFFACEMENT DES TABLES
+
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS projets;
+DROP TABLE IF EXISTS projets_tech;
+DROP TABLE IF EXISTS tech;
+DROP TABLE IF EXISTS tech_cat;
+DROP TABLE IF EXISTS images;
+
+-- CREATION TABLE USER
+
+CREATE TABLE user (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pseudo VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL 
+);
+
+-- CREATION TABLE PROJETS
+
+CREATE TABLE projets (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    lien VARCHAR(255),
+    image_id INT,
+    FOREIGN KEY (image_id) REFERENCES images(id)
+);
+
+-- CREATION TABLE LIAISON PROJET_TECH
+
+CREATE TABLE projets_tech (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    projets_id INT,
+    tech_id INT, 
+    FOREIGN KEY (projets_id) REFERENCES projets(id),
+    FOREIGN KEY (tech_id) REFERENCES tech(id)
+);
+
+-- CREATION TABLE TECH
+
+CREATE TABLE tech (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(50) NOT NULL,
+    image_id INT,
+    tech_cat_id INT,
+    FOREIGN KEY (image_id) REFERENCES images(id),
+    FOREIGN KEY (tech_cat_id) REFERENCES tech_cat(id)
+);
+
+-- CREATION TABLE TECH_CAT
+
+CREATE TABLE tech_cat (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL
+);
+
+-- CREATION TABLE IMAGES 
+
+CREATE TABLE images (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    type VARCHAR(55) NOT NULL,
+    taille INT,
+    image BLOB NOT NULL
+);
+
