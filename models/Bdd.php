@@ -4,23 +4,18 @@ class Bdd
 {
     protected PDO $bdd;
 
-    private const bdd_host = "localhost";
-    private const bdd_user = "root";
-    private const bdd_pass = "";
-    private const bdd_name = "portfolio";
+    private const BDD_HOST = "localhost";
+    private const BDD_USER = "root";
+    private const BDD_PASS = "";
+    private const BDD_NAME = "portfolio";
 
     public function __construct()
     {
         try {
-            $this->bdd = new PDO("mysql:host=" . self::bdd_host . ";dbname=" . self::bdd_name . "; charset=utf-8", self::bdd_user, self::bdd_pass);
+            $this->bdd = new PDO("mysql:host=" . self::BDD_HOST . ";dbname=" . self::BDD_NAME . "; charset=utf-8", self::BDD_USER, self::BDD_PASS);
             $this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             die("Erreur : " . $e->getMessage());
         }
-    }
-
-    public function getBdd(): PDO
-    {
-        return $this->bdd;
     }
 }
