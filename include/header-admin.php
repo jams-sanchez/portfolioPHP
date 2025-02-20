@@ -1,5 +1,13 @@
 <?php
 
+var_dump($_POST);
+
+if (isset($_POST['logout'])) {
+    unset($_SESSION);
+    session_destroy();
+    header('location: ../pages/admin.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,41 +24,53 @@
 
     <header class="header">
 
-        <nav class="nav-barre">
 
-            <!-- si page de connexion -->
 
-            <?php if (!isset($_SESSION)): ?>
+        <!-- si page de connexion -->
 
+        <?php if (!isset($_SESSION['userPseudo'])): ?>
+            <div class="cercle">
                 <a href="#">Retour Portfolio</a>
+            </div>
+        <?php else: ?>
 
-            <?php else: ?>
 
+            <?php if (isset($_GET['page'])): ?>
                 <?php if ($_GET['page'] != 'home'): ?>
 
                     <!-- si page != admin home -->
-                    <a href="admin.php?page=home">Admin Home</a>
+                    <div class="cercle">
+                        <a href="admin.php?page=home">Admin Home</a>
+                    </div>
 
-                    <?php if ($_GET['page'] != 'projets'): ?>
-                        <a href="admin-projets.php?page=projets">Projets</a>
-                    <?php endif; ?>
+                    <nav class="nav-header">
+                        <?php if ($_GET['page'] != 'projets'): ?>
+                            <a href="admin-projets.php?page=projets">Projets</a>
+                        <?php endif; ?>
 
-                    <?php if ($_GET['page'] != 'tech'): ?>
-                        <a href="pages/admin-tech.php?page=tech">Tech</a>
-                    <?php endif; ?>
+                        <?php if ($_GET['page'] != 'tech'): ?>
+                            <a href="pages/admin-tech.php?page=tech">Tech</a>
+                        <?php endif; ?>
 
-                    <?php if ($_GET['page'] != 'images'): ?>
-                        <a href="admin-images.php?page=images">Images</a>
-                    <?php endif; ?>
+                        <?php if ($_GET['page'] != 'images'): ?>
+                            <a href="admin-images.php?page=images">Images</a>
+                        <?php endif; ?>
 
-                    <a href="admin-deco.php">Deconnexion</a>
+                    </nav>
+                    <form action="" method="post">
+                        <button type="submit" name="logout" class="cercle ">Logout</button>
+                    </form>
+
 
                 <?php else: ?>
-                    <a href="#">Deconnexion</a>
+                    <form action="" method="post">
+                        <button type="submit" name="logout" class="cercle">Logout</button>
+                    </form>
                 <?php endif; ?>
-
-
             <?php endif; ?>
-        </nav>
+
+
+        <?php endif; ?>
+
 
     </header>

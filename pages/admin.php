@@ -37,12 +37,12 @@ if (isset($_POST['connexion'])) {
         </form>
         <!-- sinon -->
     <?php else: ?>
-        <div class="menu-admin">
+        <nav class="menu-admin">
             <a href="../pages/admin-compte.php?page=compte">Compte</a>
             <a href="../pages/admin-projets.php?page=projets">Projets</a>
             <a href="../pages/admin-tech.php?page=tech">Tech</a>
             <a href="../pages/admin-images.php?page=images">Images</a>
-        </div>
+        </nav>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['message'])): ?>
