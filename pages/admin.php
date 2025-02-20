@@ -4,9 +4,6 @@ session_start();
 
 require_once('../models/User.php');
 
-var_dump($_POST);
-var_dump($_SESSION);
-
 if (isset($_POST['connexion'])) {
     if (!empty($_POST['userPseudo']) and !empty($_POST['userPassword'])) {
         $userPseudo = $_POST['userPseudo'];

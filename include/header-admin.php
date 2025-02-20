@@ -1,7 +1,5 @@
 <?php
 
-var_dump($_POST);
-
 if (isset($_POST['logout'])) {
     unset($_SESSION);
     session_destroy();
@@ -29,7 +27,7 @@ if (isset($_POST['logout'])) {
         <!-- si page de connexion -->
 
         <?php if (!isset($_SESSION['userPseudo'])): ?>
-            <div class="cercle">
+            <div class="return-portfolio">
                 <a href="#">Retour Portfolio</a>
             </div>
         <?php else: ?>
@@ -49,7 +47,7 @@ if (isset($_POST['logout'])) {
                         <?php endif; ?>
 
                         <?php if ($_GET['page'] != 'tech'): ?>
-                            <a href="pages/admin-tech.php?page=tech">Tech</a>
+                            <a href="admin-tech.php?page=tech">Tech</a>
                         <?php endif; ?>
 
                         <?php if ($_GET['page'] != 'images'): ?>

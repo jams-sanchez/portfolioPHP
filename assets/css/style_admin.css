@@ -11,7 +11,7 @@
 
 body {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #e8e8e8;
 }
 
@@ -24,11 +24,6 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-}
-
-.menu-admin a:hover {
-    color: rgb(242, 190, 58);
-    font-weight: bold;
 }
 
 .cercle {
@@ -56,11 +51,14 @@ body {
     align-items: center; 
 }
 
-.nav-header a {
+.nav-header a,
+.return-portfolio a {
     font-size: 2.5rem;
     color: white;
 }
-.nav-header a:hover {
+
+.nav-header a:hover,
+.return-portfolio a:hover{
     color: rgb(242, 190, 58);
 }
 
@@ -110,10 +108,10 @@ body {
 }
 
 .menu-admin {
-    width: 100%;
+    width: fit-content;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
     font-size: 3rem;
     gap: 3rem;
 }
@@ -122,6 +120,22 @@ body {
     color: #353535;
 }
 
+.menu-admin a:hover {
+    color: rgb(242, 190, 58);
+}
+
+.button-connexion {
+    background-color: rgb(204, 204, 204);
+    width: 8rem;
+    height: 3rem;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+.button-connexion:hover {
+    background-color: #2d2d2d36;
+}
 
 /* footer */
 
