@@ -1,6 +1,6 @@
 <?php
 
-require_once('./Bdd.php');
+require_once('../models/Bdd.php');
 
 class User extends Bdd
 {
@@ -18,6 +18,8 @@ class User extends Bdd
     // méthode connexion 
     public function userConnexion(): void
     {
+        unset($_SESSION['message']);
+
         // recupère les infos user
         $loginStmt = "SELECT user.pseudo, user.password
         FROM user
@@ -31,8 +33,8 @@ class User extends Bdd
         // vérifie le mot de passe
         if ($userInfos && (password_verify($this->userPass, $userInfos['password'])) || ($userInfos && $this->userPass == $userInfos['password'])) {
             session_start();
-            $_SESSION['pseudo'] = $this->userPseudo;
-            header('location: ./admin.php');
+            $_SESSION['userPseudo'] = $this->userPseudo;
+            header('location: ../pages/admin.php?page=home');
             exit();
         } else {
             $_SESSION['message'] = 'Pseudo ou mot de passe incorrect';
