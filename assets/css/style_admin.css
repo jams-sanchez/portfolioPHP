@@ -24,6 +24,10 @@ body {
     font-size: 0.8rem;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 /* header */
 
 .header {
@@ -133,7 +137,51 @@ body {
     color: rgb(242, 190, 58);
 }
 
-/* PAGE compte */
+/* PAGE tech */
+
+.main-tech {
+    width: 100%;
+    /* height: calc(100% - 11.18rem); */
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3rem;
+}
+
+.show-tech {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1.8rem;
+    
+}
+
+.box-tech {
+    width: 20rem;
+    min-height: 15rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    border: 2px solid #222222;
+    /* gap: 2rem; */
+}
+
+.box-tech-info {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+}
 
 
 
@@ -153,9 +201,10 @@ body {
 }
 
 .button-update,
-.button-cancel,
-.button-valid {
-    width: 8rem;
+.button-red,
+.button-green,
+.button-yellow {
+    width: 6rem;
     margin: 0 auto;
     padding: 0.5rem;
     border: none;
@@ -166,18 +215,25 @@ body {
     background-color: rgba(241, 196, 49, 0.527);
 }
 
-.button-cancel {
+.button-red {
     background-color: rgb(238, 46, 46);
 }
-.button-cancel:hover {
+.button-red:hover {
     background-color: rgb(255, 50, 50);
 }
 
-.button-valid {
+.button-green {
     background-color: rgb(58, 175, 22);
 }
-.button-valid:hover {
+.button-green:hover {
     background-color: rgb(69, 202, 29);
+}
+
+.button-yellow {
+    background-color: rgb(241, 221, 38);
+}
+.button-yellow:hover {
+    background-color: rgb(255, 233, 37);
 }
 
 

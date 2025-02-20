@@ -48,8 +48,8 @@ if (isset($_POST['validPseudo'])) {
                     <li>- aucun espace, ni tiret, ni caratères spéciaux</li>
                 </ul>
                 <div class="duo-button">
-                    <input type="submit" name="cancelPseudo" class="button-cancel" value="Annuler">
-                    <input type="submit" name="validPseudo" class="button-valid" value="Valider">
+                    <input type="submit" name="cancelPseudo" class="button-red" value="Annuler">
+                    <input type="submit" name="validPseudo" class="button-green" value="Valider">
                 </div>
             </div>
 
@@ -60,8 +60,8 @@ if (isset($_POST['validPseudo'])) {
                 <input type="password" name="currentPass" placeholder="mot de passe actuel" class="input-text">
                 <input type="password" name="newPass" placeholder="nouveau mot de passe" class="input-text">
                 <div class="duo-button">
-                    <input type="submit" name="cancelPass" class="button-cancel" value="Annuler">
-                    <input type="submit" name="validPass" class="button-valid" value="Valider">
+                    <input type="submit" name="cancelPass" class="button-red" value="Annuler">
+                    <input type="submit" name="validPass" class="button-green" value="Valider">
                 </div>
             </div>
         <?php else: ?>
