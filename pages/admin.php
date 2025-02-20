@@ -4,6 +4,12 @@ session_start();
 
 require_once('../models/User.php');
 
+unset($_SESSION['message']);
+
+if (!isset($_SESSION['userPseudo'])) {
+    header("../pages/admin.php?page=home")
+}
+
 if (isset($_POST['connexion'])) {
     if (!empty($_POST['userPseudo']) and !empty($_POST['userPassword'])) {
         $userPseudo = $_POST['userPseudo'];
@@ -31,6 +37,10 @@ if (isset($_POST['connexion'])) {
                 <input type="password" name="userPassword" class="input-text">
             </div>
             <input type="submit" name="connexion" class="button-connexion" value="Connexion">
+
+            <?php if (isset($_SESSION['message'])): ?>
+                <p class="alert"><?= $_SESSION['message']; ?></p>
+            <?php endif; ?>
         </form>
         <!-- sinon -->
     <?php else: ?>
@@ -40,10 +50,6 @@ if (isset($_POST['connexion'])) {
             <a href="../pages/admin-tech.php?page=tech">Tech</a>
             <a href="../pages/admin-images.php?page=images">Images</a>
         </nav>
-    <?php endif; ?>
-
-    <?php if (isset($_SESSION['message'])): ?>
-        <?= $_SESSION['message']; ?>
     <?php endif; ?>
 
 </main>

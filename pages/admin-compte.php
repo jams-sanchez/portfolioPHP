@@ -2,6 +2,30 @@
 
 session_start();
 
+unset($_SESSION['message']);
+
+require_once('../models/User.php');
+
+if (isset($_POST['validPass'])) {
+
+    if (!empty($_POST['currentPass']) && !empty($_POST['newPass'])) {
+        $userPseudo = $_SESSION['userPseudo'];
+        $currentPass = $_POST['currentPass'];
+        $newPass = $_POST['newPass'];
+        $user = new User();
+        $user->updatePass($userPseudo, $currentPass, $newPass);
+    }
+}
+
+if (isset($_POST['validPseudo'])) {
+
+    if (!empty($_POST['newPseudo'])) {
+        $userPseudo = $_SESSION['userPseudo'];
+        $newPseudo = $_POST['newPseudo'];
+        $user = new User();
+        $user->updatePseudo($userPseudo, $newPseudo);
+    }
+}
 
 ?>
 
@@ -12,12 +36,17 @@ session_start();
 
     <form action="" method="post" class="login-box">
         <div class="title-input">
-            <?php if (!isset($_POST['newPseudo'])): ?>
+            <?php if (!isset($_POST['updatePseudo'])): ?>
                 <p>Pseudo : <span><?= $_SESSION['userPseudo']; ?></span></p>
-                <input type="submit" name="newPseudo" class="button-update" value="Modifier">
+                <input type="submit" name="updatePseudo" class="button-update" value="Modifier">
             <?php else: ?>
                 <p>Pseudo : </p>
-                <input type="text" name="updatePseudo" class="input-text">
+                <input type="text" name="newPseudo" class="input-text">
+                <ul class="pseudo-condition">
+                    <li>- doit avoir au moins 3 lettres</li>
+                    <li>- maximum 20 caratères</li>
+                    <li>- aucun espace, ni tiret, ni caratères spéciaux</li>
+                </ul>
                 <div class="duo-button">
                     <input type="submit" name="cancelPseudo" class="button-update" value="Annuler">
                     <input type="submit" name="validPseudo" class="button-update" value="Valider">
@@ -38,6 +67,9 @@ session_start();
                 </div>
             <?php endif; ?>
         </div>
+        <?php if (isset($_SESSION['message'])): ?>
+            <p class="alert"><?= $_SESSION['message']; ?></p>
+        <?php endif; ?>
     </form>
 
 </main>

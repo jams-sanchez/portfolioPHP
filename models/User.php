@@ -42,25 +42,66 @@ class User extends Bdd
     }
 
     // méthode vérification et modification mot de passe
-    public function updatePass($currentPass, $newPass): void
+    public function updatePass($userPseudo, $currentPass, $newPass): void
     {
-        // vérifie le pass actuel et hash le nouveau
+        // récupère mot de passe actuel
+        $passStmt = 'SELECT user.password
+        FROM user
+        WHERE pseudo = :pseudo';
+        $passStmt = $this->bdd->prepare($passStmt);
+        $passStmt->execute([
+            ':pseudo' => $userPseudo
+        ]);
+        $pass = $passStmt->fetch(PDO::FETCH_ASSOC);
+        $this->userPass = $pass['password'];
+
+        // vérifie le pass actuel
         if (password_verify($currentPass, $this->userPass) || $currentPass == $this->userPass) {
-            $newHashPass = password_hash($newPass, PASSWORD_BCRYPT);
+            if (password_verify($newPass, $this->userPass) || $newPass == $pass['password']) {
+                $_SESSION['message'] = "Les mots de passe sont identiques...";
+                header('refresh:1;url=../pages/admin-compte.php?page=compte');
+            } else {
+                $newHashPass = password_hash($newPass, PASSWORD_BCRYPT);
 
-            // met a jour le mot de passe
-            $updatePassStmt = "UPDATE user 
-            SET password = :newPass
-            WHERE pseudo = :pseudo";
-            $updatePassStmt = $this->bdd->prepare($updatePassStmt);
-            $updatePassStmt->execute([
-                ':newPass' => $this->userPass,
-                ':pseudo' => $this->userPseudo
-            ]);
+                // met a jour le mot de passe
+                $updatePassStmt = "UPDATE user 
+                SET password = :newPass
+                WHERE pseudo = :pseudo";
+                $updatePassStmt = $this->bdd->prepare($updatePassStmt);
+                $updatePassStmt->execute([
+                    ':newPass' => $newHashPass,
+                    ':pseudo' => $userPseudo
+                ]);
 
-            $_SESSION['message'] = "Mot de passe changé";
+                $_SESSION['message'] = "Mot de passe changé";
+                header('refresh:1;url=../pages/admin-compte.php?page=compte');
+            }
         } else {
             $_SESSION['message'] = "Erreur - Mot de passe incorrect";
+            header('refresh:1;url=../pages/admin-compte.php?page=compte');
+        }
+    }
+
+    // méthode pour changer le pseudo
+    public function updatePseudo($userPseudo, $newPseudo)
+    {
+        $regexCheck = "/^[a-zA-Z]{3,20}$/";
+
+        if (preg_match($regexCheck, $newPseudo)) {
+            $pseudoStmt = "UPDATE user SET pseudo = :newPseudo
+            WHERE pseudo = :pseudo";
+            $pseudoStmt = $this->bdd->prepare($pseudoStmt);
+            $pseudoStmt->execute([
+                ':newPseudo' => $newPseudo,
+                ':pseudo' => $userPseudo
+            ]);
+
+            $_SESSION['message'] = "Pseudo modifié";
+            $_SESSION['userPseudo'] = $newPseudo;
+            header('refresh:1;url=../pages/admin-compte.php?page=compte');
+        } else {
+            $_SESSION['message'] = "Le pseudo ne remplit pas les conditions";
+            header('refresh:1;url=../pages/admin-compte.php?page=compte');
         }
     }
 }
