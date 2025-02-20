@@ -7,7 +7,7 @@ require_once('../models/User.php');
 unset($_SESSION['message']);
 
 if (!isset($_SESSION['userPseudo'])) {
-    header("../pages/admin.php?page=home")
+    header("../pages/admin.php?page=home");
 }
 
 if (isset($_POST['connexion'])) {

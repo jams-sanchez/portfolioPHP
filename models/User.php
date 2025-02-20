@@ -85,23 +85,29 @@ class User extends Bdd
     // méthode pour changer le pseudo
     public function updatePseudo($userPseudo, $newPseudo)
     {
-        $regexCheck = "/^[a-zA-Z]{3,20}$/";
 
-        if (preg_match($regexCheck, $newPseudo)) {
-            $pseudoStmt = "UPDATE user SET pseudo = :newPseudo
-            WHERE pseudo = :pseudo";
-            $pseudoStmt = $this->bdd->prepare($pseudoStmt);
-            $pseudoStmt->execute([
-                ':newPseudo' => $newPseudo,
-                ':pseudo' => $userPseudo
-            ]);
-
-            $_SESSION['message'] = "Pseudo modifié";
-            $_SESSION['userPseudo'] = $newPseudo;
+        if (strtolower($userPseudo) == strtolower($newPseudo)) {
+            $_SESSION['message'] = "Le pseudo est identique";
             header('refresh:1;url=../pages/admin-compte.php?page=compte');
         } else {
-            $_SESSION['message'] = "Le pseudo ne remplit pas les conditions";
-            header('refresh:1;url=../pages/admin-compte.php?page=compte');
+            $regexCheck = "/^[a-zA-Z]{3,20}$/";
+
+            if (preg_match($regexCheck, $newPseudo)) {
+                $pseudoStmt = "UPDATE user SET pseudo = :newPseudo
+                WHERE pseudo = :pseudo";
+                $pseudoStmt = $this->bdd->prepare($pseudoStmt);
+                $pseudoStmt->execute([
+                    ':newPseudo' => $newPseudo,
+                    ':pseudo' => $userPseudo
+                ]);
+
+                $_SESSION['message'] = "Pseudo modifié";
+                $_SESSION['userPseudo'] = $newPseudo;
+                header('refresh:1;url=../pages/admin-compte.php?page=compte');
+            } else {
+                $_SESSION['message'] = "Le pseudo ne remplit pas les conditions";
+                header('refresh:1;url=../pages/admin-compte.php?page=compte');
+            }
         }
     }
 }

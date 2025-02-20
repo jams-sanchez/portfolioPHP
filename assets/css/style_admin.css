@@ -15,6 +15,15 @@ body {
     background-color: #e8e8e8;
 }
 
+.alert {
+    color: red;
+    font-weight: bold;
+}
+
+.pseudo-condition {
+    font-size: 0.8rem;
+}
+
 /* header */
 
 .header {
@@ -62,7 +71,7 @@ body {
     color: rgb(242, 190, 58);
 }
 
-/* admin index */
+/* PAGE admin index */
 
 .main-admin {
     width: 100%;
@@ -124,6 +133,12 @@ body {
     color: rgb(242, 190, 58);
 }
 
+/* PAGE compte */
+
+
+
+/* Boutons*/
+
 .button-connexion {
     background-color: rgb(204, 204, 204);
     width: 8rem;
@@ -136,6 +151,35 @@ body {
 .button-connexion:hover {
     background-color: #2d2d2d36;
 }
+
+.button-update,
+.button-cancel,
+.button-valid {
+    width: 8rem;
+    margin: 0 auto;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.button-update:hover {
+    background-color: rgba(241, 196, 49, 0.527);
+}
+
+.button-cancel {
+    background-color: rgb(238, 46, 46);
+}
+.button-cancel:hover {
+    background-color: rgb(255, 50, 50);
+}
+
+.button-valid {
+    background-color: rgb(58, 175, 22);
+}
+.button-valid:hover {
+    background-color: rgb(69, 202, 29);
+}
+
 
 /* footer */
 

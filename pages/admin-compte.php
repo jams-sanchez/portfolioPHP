@@ -14,6 +14,7 @@ if (isset($_POST['validPass'])) {
         $newPass = $_POST['newPass'];
         $user = new User();
         $user->updatePass($userPseudo, $currentPass, $newPass);
+        $_POST = array();
     }
 }
 
@@ -24,6 +25,7 @@ if (isset($_POST['validPseudo'])) {
         $newPseudo = $_POST['newPseudo'];
         $user = new User();
         $user->updatePseudo($userPseudo, $newPseudo);
+        $_POST = array();
     }
 }
 
@@ -35,11 +37,9 @@ if (isset($_POST['validPseudo'])) {
 <main class="main-admin">
 
     <form action="" method="post" class="login-box">
-        <div class="title-input">
-            <?php if (!isset($_POST['updatePseudo'])): ?>
-                <p>Pseudo : <span><?= $_SESSION['userPseudo']; ?></span></p>
-                <input type="submit" name="updatePseudo" class="button-update" value="Modifier">
-            <?php else: ?>
+
+        <?php if (isset($_POST['updatePseudo'])): ?>
+            <div class="title-input">
                 <p>Pseudo : </p>
                 <input type="text" name="newPseudo" class="input-text">
                 <ul class="pseudo-condition">
@@ -48,28 +48,34 @@ if (isset($_POST['validPseudo'])) {
                     <li>- aucun espace, ni tiret, ni caratères spéciaux</li>
                 </ul>
                 <div class="duo-button">
-                    <input type="submit" name="cancelPseudo" class="button-update" value="Annuler">
-                    <input type="submit" name="validPseudo" class="button-update" value="Valider">
+                    <input type="submit" name="cancelPseudo" class="button-cancel" value="Annuler">
+                    <input type="submit" name="validPseudo" class="button-valid" value="Valider">
                 </div>
-            <?php endif; ?>
-        </div>
-        <div class="title-input">
-            <?php if (!isset($_POST['updatePass'])): ?>
-                <p>Mot de passe: <span>***</span></p>
-                <input type="submit" name="updatePass" class="button-update" value="Modifier">
-            <?php else: ?>
+            </div>
+
+        <?php elseif (isset($_POST['updatePass'])): ?>
+
+            <div class="title-input">
                 <p>Mot de passe: </p>
                 <input type="password" name="currentPass" placeholder="mot de passe actuel" class="input-text">
                 <input type="password" name="newPass" placeholder="nouveau mot de passe" class="input-text">
                 <div class="duo-button">
-                    <input type="submit" name="cancelPass" class="button-update" value="Annuler">
-                    <input type="submit" name="validPass" class="button-update" value="Valider">
+                    <input type="submit" name="cancelPass" class="button-cancel" value="Annuler">
+                    <input type="submit" name="validPass" class="button-valid" value="Valider">
                 </div>
+            </div>
+        <?php else: ?>
+            <div class="title-input">
+                <p>Pseudo : <span><?= $_SESSION['userPseudo']; ?></span></p>
+                <input type="submit" name="updatePseudo" class="button-update" value="Modifier">
+                <p>Mot de passe: <span>***</span></p>
+                <input type="submit" name="updatePass" class="button-update" value="Modifier">
+            </div>
+            <?php if (isset($_SESSION['message'])): ?>
+                <p class="alert"><?= $_SESSION['message']; ?></p>
             <?php endif; ?>
-        </div>
-        <?php if (isset($_SESSION['message'])): ?>
-            <p class="alert"><?= $_SESSION['message']; ?></p>
         <?php endif; ?>
+
     </form>
 
 </main>
