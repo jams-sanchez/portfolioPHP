@@ -21,29 +21,25 @@ class Tech extends Bdd
     public function getTech(): array
     {
         $getStmt = "SELECT tech.nom AS tech, 
-        tech_cat.nom AS categorie,
-        image.bin
+        tech_cat.nom AS categorie
         FROM tech
-        JOIN tech_cat ON tech_cat.id = tech.tech_cat_id
-        JOIN image ON tech.image_id = image.id";
+        JOIN tech_cat ON tech_cat.id = tech.tech_cat_id";
         $getStmt = $this->bdd->prepare($getStmt);
         $getStmt->execute();
         $listTech = $getStmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // $tech = [];
-        // foreach ($listTech as $value) {
-        //     $this->techName = $value['tech'];
-        //     $this->techCat = $value['categorie'];
-        //     $this->techImage = $value['bin'];
+        $tech = [];
+        foreach ($listTech as $value) {
+            $this->techName = $value['tech'];
+            $this->techCat = $value['categorie'];
 
-        //     $tech[$this->techName] = [
-        //         'categorie' => $this->techCat,
-        //         'image' => $this->techImage
-        //     ];
-        // }
-        return $listTech;
+            $tech[$this->techName] = [
+                'categorie' => $this->techCat
+            ];
+        }
+        return $tech;
     }
 }
 
-$tech = new Tech();
-var_dump($tech->getTech());
+// $tech = new Tech();
+// var_dump($tech->getTech());
