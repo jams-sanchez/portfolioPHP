@@ -10,8 +10,8 @@ unset($_SESSION['message']);
 if (isset($_POST['validPass'])) {
 
     if (!empty($_POST['currentPass']) && !empty($_POST['newPass'])) {
-        $userPseudo = $_SESSION['userPseudo'];
-        $currentPass = $_POST['currentPass'];
+        $userPseudo = htmlentities($_SESSION['userPseudo']);
+        $currentPass = htmlentities($_POST['currentPass']);
         $newPass = $_POST['newPass'];
         $user = new User();
         $user->updatePass($userPseudo, $currentPass, $newPass);
@@ -42,8 +42,8 @@ if (isset($_POST['validPseudo'])) {
 
             <?php if (isset($_POST['updatePseudo'])): ?>
                 <div class="title-input">
-                    <p>Pseudo : </p>
-                    <input type="text" name="newPseudo" class="input-text">
+                    <label for="newPseudo">Pseudo : </label>
+                    <input type="text" name="newPseudo" id="newPseudo" class="input-text">
                     <ul class="pseudo-condition">
                         <li>- doit avoir au moins 3 lettres</li>
                         <li>- maximum 20 caratères</li>
@@ -58,9 +58,9 @@ if (isset($_POST['validPseudo'])) {
             <?php elseif (isset($_POST['updatePass'])): ?>
 
                 <div class="title-input">
-                    <p>Mot de passe: </p>
-                    <input type="password" name="currentPass" placeholder="mot de passe actuel" class="input-text">
-                    <input type="password" name="newPass" placeholder="nouveau mot de passe" class="input-text">
+                    <label for="newPass">Mot de passe: </label>
+                    <input type="password" name="currentPass" id="newPass" placeholder="mot de passe actuel" class="input-text">
+                    <input type="password" name="newPass" id="newPass" placeholder="nouveau mot de passe" class="input-text">
                     <div class="duo-button">
                         <input type="submit" name="cancelPass" class="button-red" value="Annuler">
                         <input type="submit" name="validPass" class="button-green" value="Valider">

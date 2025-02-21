@@ -28,6 +28,10 @@ body {
     font-weight: bold;
 }
 
+.upp {
+    text-transform: uppercase;
+}
+
 /* header */
 
 .header {
@@ -170,7 +174,7 @@ body {
     justify-content: space-between;
     align-items: stretch;
     border: 2px solid #222222;
-    /* gap: 2rem; */
+    gap: 2rem;
 }
 
 .box-tech-info {
@@ -182,6 +186,13 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.tech-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
 }
 
 

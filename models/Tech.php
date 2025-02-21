@@ -1,4 +1,7 @@
 <?php
+// a supprimer apres test
+require('../config.php');
+// 
 
 require_once('../models/Bdd.php');
 
@@ -39,7 +42,31 @@ class Tech extends Bdd
         }
         return $tech;
     }
+
+    // méthode pour ajouter une tech
+    // public function updateTech($techName, $techCat, $techImage): void {
+    //     $newTechStmt = "UPDATE tech SET "
+    // }
+
+    // méthode pour récuperer toutes les categories tech
+    public function getTechCat(): array
+    {
+        $listCatStmt = "SELECT * 
+        FROM tech_cat";
+        $listCatStmt = $this->bdd->prepare(($listCatStmt));
+        $listCatStmt->execute();
+        $listCat = $listCatStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $categorie = [];
+        foreach ($listCat as $value) {
+            $catId = $value['id'];
+            $catName = $value['nom'];
+            $categorie[$catId] = $catName;
+        }
+
+        return $categorie;
+    }
 }
 
 // $tech = new Tech();
-// var_dump($tech->getTech());
+// var_dump($tech->getTechCat());
