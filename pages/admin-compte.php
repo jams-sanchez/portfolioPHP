@@ -4,7 +4,8 @@ session_start();
 require('../config.php');
 require_once('../models/User.php');
 
-unset($_SESSION['message']);
+unset($_SESSION['erreur']);
+unset($_SESSION['succes']);
 
 
 if (isset($_POST['validPass'])) {
@@ -69,12 +70,16 @@ if (isset($_POST['validPseudo'])) {
             <?php else: ?>
                 <div class="title-input">
                     <p>Pseudo : <span><?= $_SESSION['userPseudo']; ?></span></p>
-                    <input type="submit" name="updatePseudo" class="button-update" value="Modifier">
+                    <input type="submit" name="updatePseudo" class="button-yellow" value="Modifier">
                     <p>Mot de passe: <span>***</span></p>
-                    <input type="submit" name="updatePass" class="button-update" value="Modifier">
+                    <input type="submit" name="updatePass" class="button-yellow" value="Modifier">
                 </div>
-                <?php if (isset($_SESSION['message'])): ?>
-                    <p class="alert"><?= $_SESSION['message']; ?></p>
+                <!-- message -->
+                <?php if (isset($_SESSION['succes'])): ?>
+                    <p class="alert-green"><?= $_SESSION['succes']; ?></p>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['erreur'])): ?>
+                    <p class="alert-red"><?= $_SESSION['erreur']; ?></p>
                 <?php endif; ?>
             <?php endif; ?>
 

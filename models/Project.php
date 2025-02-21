@@ -2,4 +2,4 @@
 
 require_once('../models/Bdd.php');
 
-class Images extends Bdd {}
+class Project extends Bdd {}
