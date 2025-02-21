@@ -37,13 +37,14 @@ class Tech extends Bdd
 
         $tech = [];
         foreach ($listTech as $value) {
+            $this->techId = $value['id'];
             $this->techName = $value['tech'];
             $this->techCat = $value['categorie'];
             $this->techImage = $value['bin'];
 
             $tech[$this->techName] = [
-                'categorie' => $this->techCat,
                 'id' => $this->techId,
+                'categorie' => $this->techCat,
                 'image' => $this->techImage
             ];
         }
@@ -81,9 +82,6 @@ class Tech extends Bdd
 
         return $categorie;
     }
-
-    // méthode pour supprimer une tech et son image
-    public function deleteTech($techId): void {}
 }
 
 // $tech = new Tech();

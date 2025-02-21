@@ -51,4 +51,42 @@ class Image extends Bdd
             }
         }
     }
+
+    // méthode pour supprimer l'image d'une tech
+    public function deleteImageTech($techId)
+    {
+        // récupère l'id de l'image via l'id de la tech
+        $imageStmt = "SELECT image_id 
+        FROM tech
+        WHERE tech.id = :id";
+        $imageStmt = $this->bdd->prepare($imageStmt);
+        $imageStmt->execute([
+            'id' => $techId
+        ]);
+        $imageId = $imageStmt->fetchColumn();
+
+        // recupere le bin de l'image
+        $nomStmt = "SELECT image.nom
+        FROM image
+        WHERE id = :id";
+        $nomStmt = $this->bdd->prepare($nomStmt);
+        $nomStmt->execute([
+            ':id' => $imageId
+        ]);
+        $imageNom = $nomStmt->fetchColumn();
+
+        // supprime le fichier de l'image du dossier
+        $filePath = "../assets/img/" . $imageNom;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        // supprime l'image
+        $deleteStmt = "DELETE FROM image
+        WHERE image.id = :id";
+        $deleteStmt = $this->bdd->prepare($deleteStmt);
+        $deleteStmt->execute([
+            ':id' => $imageId
+        ]);
+    }
 }

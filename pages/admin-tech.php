@@ -9,6 +9,7 @@ unset($_SESSION['succes']);
 unset($_SESSION['erreur']);
 
 $tech = new Tech();
+$image = new Image();
 
 // recupère infos tech
 $listTech = $tech->getTech();
@@ -55,11 +56,23 @@ if (isset($_POST['validTech'])) {
                 $tech->insertTech($techName, $imageId, $techCatId);
 
                 $_SESSION['succes'] = "Succès - Tech ajoutée";
+                $_POST['addTech'] = "+";
                 header('refresh: 1; url=../pages/admin-tech.php?page=tech');
             }
         }
     }
-    // suppression de tech
+}
+
+// suppression de tech
+
+if (isset($_POST['deleteTech'])) {
+
+    $techId = $_POST['deleteTech'];
+
+    // supprimer l'image de la tech supprime la tech associé
+    $image->deleteImageTech($techId);
+    $_SESSION['succes'] = "Succès - Tech supprimée";
+    header('refresh: 1; url=../pages/admin-tech.php?page=tech');
 }
 
 
@@ -69,20 +82,23 @@ if (isset($_POST['validTech'])) {
 
 <?php include_once('../include/header-admin.php'); ?>
 
+<?php var_dump($_POST); ?>
+<?php var_dump($_SESSION); ?>
 <?php var_dump($_FILES); ?>
 
 <?php if (isset($_SESSION['userPseudo'])): ?>
     <main class="main-tech">
 
+        <!-- message -->
+        <?php if (isset($_SESSION['succes'])): ?>
+            <p class="alert-green"><?= $_SESSION['succes']; ?></p>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['erreur'])): ?>
+            <p class="alert-red"><?= $_SESSION['erreur']; ?></p>
+        <?php endif; ?>
+
         <?php if (isset($_POST['addTech'])) : ?>
 
-            <!-- message -->
-            <?php if (isset($_SESSION['succes'])): ?>
-                <p class="alert-green"><?= $_SESSION['succes']; ?></p>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['erreur'])): ?>
-                <p class="alert-red"><?= $_SESSION['erreur']; ?></p>
-            <?php endif; ?>
 
             <form action="" method="post" enctype="multipart/form-data" class="box-tech">
                 <!-- add nom -->
@@ -117,13 +133,6 @@ if (isset($_POST['validTech'])) {
 
             <form action="" method="post" class="button-add-box">
                 <input type="submit" name="addTech" class="button-green bold" value="+">
-                <!-- message -->
-                <?php if (isset($_SESSION['succes'])): ?>
-                    <p class="alert-green"><?= $_SESSION['succes']; ?></p>
-                <?php endif; ?>
-                <?php if (isset($_SESSION['erreur'])): ?>
-                    <p class="alert-red"><?= $_SESSION['erreur']; ?></p>
-                <?php endif; ?>
             </form>
 
             <section class="show-tech">
@@ -138,10 +147,10 @@ if (isset($_POST['validTech'])) {
                         </div>
 
 
-                        <div class="duo-button">
-                            <button type="submit" name="delete-tech" class="button-red" value="<?= $value['id']; ?>">Supprimer</button>
-                            <input type="submit" name="update-tech" class="button-yellow" value="Modifier">
-                        </div>
+                        <form action="" method="post" class="duo-button">
+                            <button type="submit" name="deleteTech" class="button-red" value="<?= $value['id']; ?>">Supprimer</button>
+                            <input type="submit" name="updateTech" class="button-yellow" value="Modifier">
+                        </form>
 
                     </div>
                 <?php endforeach; ?>
