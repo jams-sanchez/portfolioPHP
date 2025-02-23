@@ -11,8 +11,8 @@ unset($_SESSION['succes']);
 if (isset($_POST['validPass'])) {
 
     if (!empty($_POST['currentPass']) && !empty($_POST['newPass'])) {
-        $userPseudo = htmlentities($_SESSION['userPseudo']);
-        $currentPass = htmlentities($_POST['currentPass']);
+        $userPseudo = htmlspecialchars($_SESSION['userPseudo']);
+        $currentPass = htmlspecialchars($_POST['currentPass']);
         $newPass = $_POST['newPass'];
         $user = new User();
         $user->updatePass($userPseudo, $currentPass, $newPass);

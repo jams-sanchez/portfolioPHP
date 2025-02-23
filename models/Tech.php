@@ -51,6 +51,43 @@ class Tech extends Bdd
         return $tech;
     }
 
+    // méthode pour récupèrer une tech via son id
+    public function getTechById($techId): array
+    {
+        $getStmt = "SELECT tech.nom, 
+        tech_cat_id AS catId,
+        tech_cat.nom AS categorie,
+        image.bin AS image 
+        FROM tech
+        JOIN tech_cat ON tech_cat.id = tech.tech_cat_id
+        JOIN image ON image.id = tech.image_id
+        WHERE tech.id = :id";
+        $getStmt = $this->bdd->prepare($getStmt);
+        $getStmt->execute([
+            ':id' => $techId
+        ]);
+        return $getStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // méthode pour récuperer toutes les categories tech (modifier tech)
+    public function getTechCat(): array
+    {
+        $listCatStmt = "SELECT * 
+            FROM tech_cat";
+        $listCatStmt = $this->bdd->prepare(($listCatStmt));
+        $listCatStmt->execute();
+        $listCat = $listCatStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $categorie = [];
+        foreach ($listCat as $value) {
+            $catId = $value['id'];
+            $catName = $value['nom'];
+            $categorie[$catId] = $catName;
+        }
+
+        return $categorie;
+    }
+
     // méthode pour ajouter une tech
     public function insertTech($techName, $techImageId, $techCatId): void
     {
@@ -64,23 +101,11 @@ class Tech extends Bdd
         ]);
     }
 
-    // méthode pour récuperer toutes les categories tech (modifier tech)
-    public function getTechCat(): array
+    // méthode pour modifier une tech
+    public function updateTech($techId, $techName, $techCat, $techImage): void
     {
-        $listCatStmt = "SELECT * 
-        FROM tech_cat";
-        $listCatStmt = $this->bdd->prepare(($listCatStmt));
-        $listCatStmt->execute();
-        $listCat = $listCatStmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $categorie = [];
-        foreach ($listCat as $value) {
-            $catId = $value['id'];
-            $catName = $value['nom'];
-            $categorie[$catId] = $catName;
-        }
-
-        return $categorie;
+        $updateStmt = "UPDATE tech SET nom = :nom;
+        WHERE tech.id = :id";
     }
 }
 
