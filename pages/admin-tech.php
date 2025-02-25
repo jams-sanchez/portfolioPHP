@@ -65,22 +65,34 @@ if (isset($_POST['validTech'])) {
 
 
 // modifier tech
+$idTech = null;
 // recuperation de la tech a modifier
 if (isset($_POST['updateTech'])) {
     $idTech = $_POST['updateTech'];
+
     $selectedTech = $tech->getTechById($idTech);
-
-    if (isset($_POST['validUpdate'])) {
-        if (!empty($_POST['updateTech'])) {
-            $techName = htmlspecialchars($_POST['updateTech']);
-        }
-
-        $techCat = $_POST['updateCat'];
-        $techImage = $_POST['updateImage'];
+    foreach ($selectedTech as $object) {
+        $selectedTech = $object;
     }
+    $_SESSION['selectedTech'] = $selectedTech['id'];
 
     var_dump($selectedTech);
 }
+// modification nom et catégorie
+if (isset($_POST['validUpdate'])) {
+    $idTech = $_SESSION['selectedTech'];
+    $techName = htmlspecialchars($_POST['updateName']);
+    $techCat = $_POST['updateCat'];
+
+    $tech->updateTech($idTech, $techName, $techCat);
+
+    $_SESSION['succes'] = "Succès - Tech mise à jour";
+    header('refresh: 0.5; url=../pages/admin-tech.php?page=tech');
+
+    // $techImage = $_POST['updateImage'];
+}
+
+
 
 // suppression de tech
 
@@ -115,9 +127,9 @@ if (isset($_POST['deleteTech'])) {
             <p class="alert-red"><?= $_SESSION['erreur']; ?></p>
         <?php endif; ?>
 
+
         <!-- ajout de tech -->
         <?php if (isset($_POST['addTech'])) : ?>
-
 
             <form action="" method="post" enctype="multipart/form-data" class="box-tech">
                 <!-- add nom -->
@@ -152,31 +164,31 @@ if (isset($_POST['deleteTech'])) {
         <?php elseif (isset($_POST['updateTech'])): ?>
 
             <form action="" method="post" enctype="multipart/form-data" class="box-tech">
-                <?php foreach ($selectedTech as $value): ?>
-                    <!-- update nom -->
-                    <div class="tech-input">
-                        <label for="updateTech" class="bold">Nom : </label>
-                        <input type="text" name="updateTech" id="updateTech" class="input-text" placeholder="<?= $value['nom']; ?>">
-                    </div>
-                    <!-- update categorie -->
-                    <div class="tech-input">
-                        <label for="updateCat" class="bold">Catégorie : </label>
-                        <select class="select-button" name="updateCat" id="updateCat">
-                            <option value="<?= $value['catId']; ?>"><?= $value['categorie']; ?></option>
-                            <?php foreach ($listCat as $id => $categorie): ?>
-                                <?php if ($categorie != $value['categorie']) : ?>
-                                    <option value="<?= $id ?>"><?= $categorie ?></option>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <!-- update logo -->
-                    <div class="tech-input">
-                        <label for="updateImage" class="bold">Logo : </label>
-                        <input type="file" name="updateImage" id="updateImage" class="input-file" accept=".jpg,.jpeg,.webp,.png">
-                        <img src="<?= $value['image']; ?>" class="logo" />
-                    </div>
-                <?php endforeach; ?>
+
+                <!-- update nom -->
+                <div class="tech-input">
+                    <label for="updateTech" class="bold">Nom : </label>
+                    <input type="text" name="updateName" id="updateName" class="input-text" placeholder="<?= $selectedTech['nom']; ?>">
+                </div>
+                <!-- update categorie -->
+                <div class="tech-input">
+                    <label for="updateCat" class="bold">Catégorie : </label>
+                    <select class="select-button" name="updateCat" id="updateCat">
+                        <option value="<?= $selectedTech['catId']; ?>"><?= $selectedTech['categorie']; ?></option>
+                        <?php foreach ($listCat as $id => $categorie): ?>
+                            <?php if ($categorie != $selectedTech['categorie']) : ?>
+                                <option value="<?= $id ?>"><?= $categorie ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <!-- update logo -->
+                <div class="tech-input">
+                    <label for="updateImage" class="bold">Logo : </label>
+                    <input type="file" name="updateImage" id="updateImage" class="input-file" accept=".jpg,.jpeg,.webp,.png">
+                    <img src="<?= $selectedTech['image']; ?>" class="logo" />
+                </div>
+
                 <div class="duo-button">
                     <input type="submit" name="cancelTech" class="button-red" value="Annuler">
                     <input type="submit" name="validUpdate" class="button-green" value="Valider">
@@ -184,6 +196,7 @@ if (isset($_POST['deleteTech'])) {
                 </div>
 
             </form>
+
 
         <?php else: ?>
 
@@ -194,26 +207,19 @@ if (isset($_POST['deleteTech'])) {
             </form>
 
             <section class="show-tech">
-
-                <?php foreach ($listTech as $tech => $value): ?>
+                <?php foreach ($listTech as $tech): ?>
                     <div class="box-tech">
-
                         <div class="box-tech-info">
-                            <p>Nom: <span class="bold upp"> <?= $tech; ?> </span></p>
-                            <p>Categorie: <span class="bold upp"> <?= $value['categorie']; ?></span></p>
-                            <img src="<?= $value['image']; ?>" class="logo" />
+                            <p>Nom: <span class="bold upp"> <?= $tech['nom']; ?> </span></p>
+                            <p>Categorie: <span class="bold upp"> <?= $tech['categorie']; ?></span></p>
+                            <img src="<?= $tech['image']; ?>" class="logo" />
                         </div>
-
-
                         <form action="" method="post" class="duo-button">
-                            <button type="submit" name="deleteTech" class="button-red" value="<?= $value['id']; ?>">Supprimer</button>
-                            <button type="submit" name="updateTech" class="button-yellow" value="<?= $value['id']; ?>">Modifier</button>
+                            <button type="submit" name="deleteTech" class="button-red" value="<?= $tech['id']; ?>">Supprimer</button>
+                            <button type="submit" name="updateTech" class="button-yellow" value="<?= $tech['id']; ?>">Modifier</button>
                         </form>
-
                     </div>
                 <?php endforeach; ?>
-
-
             </section>
     </main>
 

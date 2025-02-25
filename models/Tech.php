@@ -25,36 +25,21 @@ class Tech extends Bdd
     // méthode pour récuperer toutes les techs et leurs infos
     public function getTech(): array
     {
-        $getStmt = "SELECT tech.id, tech.nom AS tech, 
+        $getStmt = "SELECT tech.id, tech.nom, 
         tech_cat.nom AS categorie,
-        image.bin
+        image.bin AS image
         FROM tech
         JOIN tech_cat ON tech_cat.id = tech.tech_cat_id
         JOIN image ON image.id = tech.image_id";
         $getStmt = $this->bdd->prepare($getStmt);
         $getStmt->execute();
-        $listTech = $getStmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $tech = [];
-        foreach ($listTech as $value) {
-            $this->techId = $value['id'];
-            $this->techName = $value['tech'];
-            $this->techCat = $value['categorie'];
-            $this->techImage = $value['bin'];
-
-            $tech[$this->techName] = [
-                'id' => $this->techId,
-                'categorie' => $this->techCat,
-                'image' => $this->techImage
-            ];
-        }
-        return $tech;
+        return $getStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // méthode pour récupèrer une tech via son id
     public function getTechById($techId): array
     {
-        $getStmt = "SELECT tech.nom, 
+        $getByIdStmt = "SELECT tech.id, tech.nom, 
         tech_cat_id AS catId,
         tech_cat.nom AS categorie,
         image.bin AS image 
@@ -62,11 +47,11 @@ class Tech extends Bdd
         JOIN tech_cat ON tech_cat.id = tech.tech_cat_id
         JOIN image ON image.id = tech.image_id
         WHERE tech.id = :id";
-        $getStmt = $this->bdd->prepare($getStmt);
-        $getStmt->execute([
+        $getByIdStmt = $this->bdd->prepare($getByIdStmt);
+        $getByIdStmt->execute([
             ':id' => $techId
         ]);
-        return $getStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $getByIdStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // méthode pour récuperer toutes les categories tech (modifier tech)
@@ -102,12 +87,21 @@ class Tech extends Bdd
     }
 
     // méthode pour modifier une tech
-    public function updateTech($techId, $techName, $techCat, $techImage): void
+    public function updateTech($techId, $techName, $techCatId): void
     {
-        $updateStmt = "UPDATE tech SET nom = :nom;
+        $updateStmt = "UPDATE tech SET nom = :nom, tech_cat_id = :tech_cat_id
         WHERE tech.id = :id";
+        $updateStmt = $this->bdd->prepare($updateStmt);
+        $updateStmt->execute([
+            ':id' => $techId,
+            ':nom' => $techName,
+            ':tech_cat_id' => $techCatId
+        ]);
     }
 }
 
 // $tech = new Tech();
-// var_dump($tech->getTechCat());
+// var_dump($tech->getTechById(45));
+// $tech->updateTech(45, 'testPHP', 3);
+// var_dump($tech->getTechById(45));
+// var_dump($tech->getTechById(45));
