@@ -1,12 +1,12 @@
 <?php
 
 session_start();
-
+require('../config.php');
 require_once('../models/User.php');
 
 unset($_SESSION['message']);
 
-if (!isset($_SESSION['userPseudo'])) {
+if (empty($_SESSION)) {
     header("../pages/admin.php?page=home");
 }
 

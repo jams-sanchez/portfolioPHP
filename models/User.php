@@ -18,7 +18,8 @@ class User extends Bdd
     // méthode connexion 
     public function userConnexion(): void
     {
-        unset($_SESSION['message']);
+        unset($_SESSION['erreur']);
+        unset($_SESSION['succes']);
 
         // recupère les infos user
         $loginStmt = "SELECT user.pseudo, user.password
@@ -37,7 +38,7 @@ class User extends Bdd
             header('location: ../pages/admin.php?page=home');
             exit();
         } else {
-            $_SESSION['message'] = 'Pseudo ou mot de passe incorrect';
+            $_SESSION['erreur'] = 'Pseudo ou mot de passe incorrect';
         }
     }
 
@@ -58,7 +59,7 @@ class User extends Bdd
         // vérifie le pass actuel
         if (password_verify($currentPass, $this->userPass) || $currentPass == $this->userPass) {
             if (password_verify($newPass, $this->userPass) || $newPass == $pass['password']) {
-                $_SESSION['message'] = "Les mots de passe sont identiques...";
+                $_SESSION['erreur'] = "Les mots de passe sont identiques...";
                 header('refresh:1;url=../pages/admin-compte.php?page=compte');
             } else {
                 $newHashPass = password_hash($newPass, PASSWORD_BCRYPT);
@@ -73,11 +74,11 @@ class User extends Bdd
                     ':pseudo' => $userPseudo
                 ]);
 
-                $_SESSION['message'] = "Mot de passe changé";
+                $_SESSION['succes'] = "Mot de passe changé";
                 header('refresh:1;url=../pages/admin-compte.php?page=compte');
             }
         } else {
-            $_SESSION['message'] = "Erreur - Mot de passe incorrect";
+            $_SESSION['erreur'] = "Erreur - Mot de passe incorrect";
             header('refresh:1;url=../pages/admin-compte.php?page=compte');
         }
     }
@@ -87,7 +88,7 @@ class User extends Bdd
     {
 
         if (strtolower($userPseudo) == strtolower($newPseudo)) {
-            $_SESSION['message'] = "Le pseudo est identique";
+            $_SESSION['erreur'] = "Le pseudo est identique";
             header('refresh:1;url=../pages/admin-compte.php?page=compte');
         } else {
             $regexCheck = "/^[a-zA-Z]{3,20}$/";
@@ -101,11 +102,11 @@ class User extends Bdd
                     ':pseudo' => $userPseudo
                 ]);
 
-                $_SESSION['message'] = "Pseudo modifié";
+                $_SESSION['succes'] = "Pseudo modifié";
                 $_SESSION['userPseudo'] = $newPseudo;
                 header('refresh:1;url=../pages/admin-compte.php?page=compte');
             } else {
-                $_SESSION['message'] = "Le pseudo ne remplit pas les conditions";
+                $_SESSION['erreur'] = "Le pseudo ne remplit pas les conditions";
                 header('refresh:1;url=../pages/admin-compte.php?page=compte');
             }
         }

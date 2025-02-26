@@ -15,13 +15,32 @@ body {
     background-color: #e8e8e8;
 }
 
-.alert {
+.alert-red {
     color: red;
     font-weight: bold;
+    text-align: center;
+}
+.alert-green {
+    color: rgb(60, 197, 48);
+    font-weight: bold;
+    text-align: center;
 }
 
 .pseudo-condition {
     font-size: 0.8rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.upp {
+    text-transform: uppercase;
+}
+
+.logo {
+    width: 10rem;
+    height: 10rem;
 }
 
 /* header */
@@ -107,13 +126,29 @@ body {
     gap: 1.3rem;
 }
 
-.input-text {
-    height: 2rem;
+.input-text,
+.select-button,
+input[type=file]::file-selector-button {
+    height: fit-content;
     padding: 0.5rem;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
 }
 
-.input-text:focus {
-    outline: 2px solid #eca726
+.input-text:focus,
+.select-button:focus {
+    
+    outline: 2px solid #fdcc2b
+}
+
+.select-button,
+input[type=file]::file-selector-button {
+    cursor: pointer;
+}
+
+input[type=file]::file-selector-button:hover {
+    background-color: #fdcc2b;
+    border: 1px solid #f0c129;
 }
 
 .menu-admin {
@@ -133,7 +168,72 @@ body {
     color: rgb(242, 190, 58);
 }
 
-/* PAGE compte */
+/* PAGE tech */
+
+.main-tech {
+    width: 100%;
+    /* height: calc(100% - 11.18rem); */
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3rem;
+}
+
+.show-tech {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1.8rem;
+    
+}
+
+.box-tech {
+    width: 20rem;
+    min-height: 15rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    border: 2px solid #222222;
+    gap: 2rem;
+}
+
+.box-tech-info {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.duo-button {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.tech-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.button-add-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
 
 
 
@@ -153,9 +253,10 @@ body {
 }
 
 .button-update,
-.button-cancel,
-.button-valid {
-    width: 8rem;
+.button-red,
+.button-green,
+.button-yellow {
+    width: 6rem;
     margin: 0 auto;
     padding: 0.5rem;
     border: none;
@@ -166,20 +267,31 @@ body {
     background-color: rgba(241, 196, 49, 0.527);
 }
 
-.button-cancel {
+.button-red {
     background-color: rgb(238, 46, 46);
 }
-.button-cancel:hover {
+.button-red:hover {
     background-color: rgb(255, 50, 50);
 }
 
-.button-valid {
+.button-green {
     background-color: rgb(58, 175, 22);
 }
-.button-valid:hover {
+.button-green:hover {
     background-color: rgb(69, 202, 29);
 }
 
+.button-yellow {
+    background-color: rgb(241, 204, 38);
+}
+.button-yellow:hover {
+    background-color: rgb(236, 216, 35);
+}
+
+.select-button {
+    width:max-content;
+    padding: 0.5rem;
+}
 
 /* footer */
 

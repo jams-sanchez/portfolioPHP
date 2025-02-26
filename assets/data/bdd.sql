@@ -22,7 +22,7 @@ CREATE TABLE image (
     nom VARCHAR(255) NOT NULL,
     type VARCHAR(55) NOT NULL,
     taille INT,
-    image BLOB NOT NULL
+    bin LONGBLOB
 ) ENGINE=InnoDB;
 
 -- CREATION TABLE PROJETS
