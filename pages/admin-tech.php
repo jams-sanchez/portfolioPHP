@@ -74,8 +74,6 @@ if (isset($_POST['updateTech'])) {
     }
     $_SESSION['selectedId'] = $selectedTech['id'];
     $_SESSION['selectedName'] = $selectedTech['nom'];
-
-    var_dump($selectedTech);
 }
 
 // modification infos et image
