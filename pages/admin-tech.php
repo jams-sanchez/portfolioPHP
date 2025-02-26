@@ -16,7 +16,7 @@ $listTech = $tech->getTech();
 // recupère les categories pour le select pendant la modification
 $listCat = $tech->getTechCat();
 
-// ajout de tech
+// AJOUTER UNE TECH
 if (isset($_POST['validTech'])) {
 
     // messages d'erreurs
@@ -30,6 +30,7 @@ if (isset($_POST['validTech'])) {
         $_SESSION['erreur'] = "Erreur - Image manquante";
         $_POST['addTech'] = "+";
     } else {
+
         $techName = htmlentities($_POST['newTech']);
         $techCatId = $_POST['chooseCat'];
 
@@ -48,11 +49,10 @@ if (isset($_POST['validTech'])) {
             $_SESSION['erreur'] = "Le type de fichier n'est pas autorisé. Seuls les fichiers JPEG, PNG et WEBP sont acceptés.";
         } else {
 
-            $newImage = new Image();
-            if ($newImage->addImage($imageName, $imageType, $imageSize, $imageBin)) {
+            if ($image->addImage($imageName, $imageType, $imageSize, $imageBin)) {
 
                 // ajout de tech info + lie image
-                $imageId = $newImage->getLastImageId();
+                $imageId = $image->getLastImageId();
                 $tech->insertTech($techName, $imageId, $techCatId);
 
                 $_SESSION['succes'] = "Succès - Tech ajoutée";
@@ -63,9 +63,7 @@ if (isset($_POST['validTech'])) {
     }
 }
 
-
-// modifier tech
-$idTech = null;
+// MODIFIER TECH
 // recuperation de la tech a modifier
 if (isset($_POST['updateTech'])) {
     $idTech = $_POST['updateTech'];
@@ -74,28 +72,51 @@ if (isset($_POST['updateTech'])) {
     foreach ($selectedTech as $object) {
         $selectedTech = $object;
     }
-    $_SESSION['selectedTech'] = $selectedTech['id'];
+    $_SESSION['selectedId'] = $selectedTech['id'];
+    $_SESSION['selectedName'] = $selectedTech['nom'];
 
     var_dump($selectedTech);
 }
-// modification nom et catégorie
-if (isset($_POST['validUpdate'])) {
-    $idTech = $_SESSION['selectedTech'];
-    $techName = htmlspecialchars($_POST['updateName']);
-    $techCat = $_POST['updateCat'];
 
+// modification infos et image
+if (isset($_POST['validUpdate'])) {
+    $idTech = $_SESSION['selectedId'];
+
+    // modification nom et catégorie
+    if (!empty($_POST['updateName'])) {
+        $techName = htmlspecialchars($_POST['updateName']);
+    } else {
+        $techName = $_SESSION['selectedName'];
+    }
+    $techCat = $_POST['updateCat'];
     $tech->updateTech($idTech, $techName, $techCat);
 
-    $_SESSION['succes'] = "Succès - Tech mise à jour";
-    header('refresh: 0.5; url=../pages/admin-tech.php?page=tech');
+    // modification image
+    if (!empty($_FILES['updateImage'])) {
+        $imageName = $_FILES['updateImage']['name'];
+        $imageType = $_FILES['updateImage']['type'];
+        $imageSize = $_FILES['updateImage']['size'];
+        $imageBin = $_FILES['updateImage']['tmp_name'];
+        $imageError = $_FILES['updateImage']['error'];
 
-    // $techImage = $_POST['updateImage'];
+        // vérifie les erreurs d'upload
+        if ($imageError !== UPLOAD_ERR_OK) {
+            $_SESSION['erreur'] = "Image non modifié.";
+        } elseif ($imageSize > 5000000) {
+            $_SESSION['erreur'] = "La taille de l'image dépasse la limite autorisée de 5MB.";
+        } elseif (!in_array($imageType, ['image/jpeg', 'image/png', 'image/webp'])) {
+            $_SESSION['erreur'] = "Le type de fichier n'est pas autorisé. Seuls les fichiers JPEG, PNG et WEBP sont acceptés.";
+        } else {
+            $image->updateImageTech($idTech, $imageName, $imageType, $imageSize, $imageBin);
+        }
+    }
+
+    $_SESSION['succes'] = "Succès - Tech mise à jour";
+    header('refresh: 1; url=../pages/admin-tech.php?page=tech');
 }
 
 
-
-// suppression de tech
-
+// SUPPRIMER UNE TECH
 if (isset($_POST['deleteTech'])) {
 
     $techId = $_POST['deleteTech'];
@@ -106,15 +127,10 @@ if (isset($_POST['deleteTech'])) {
     header('refresh: 1; url=../pages/admin-tech.php?page=tech');
 }
 
-
-// var_dump($listTech);
 ?>
 
 
 <?php include_once('../include/header-admin.php'); ?>
-
-<?php var_dump($_POST); ?>
-<?php var_dump($_FILES); ?>
 
 <?php if (isset($_SESSION['userPseudo'])): ?>
     <main class="main-tech">

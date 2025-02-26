@@ -52,6 +52,53 @@ class Image extends Bdd
         }
     }
 
+    // méthode pour modifier l'image d'une tech
+    public function updateImageTech($techId, $imageName, $imageType, $imageSize, $imageBin)
+    {
+        $target_dir = "../assets/img/";
+        $target_file = $target_dir . basename($imageName);
+
+        // récupère l'ancienne image
+        $oldImageStmt = "SELECT image.nom
+        FROM image
+        JOIN tech ON tech.image_id = image.id
+        WHERE tech.id = :id";
+        $oldImageStmt = $this->bdd->prepare($oldImageStmt);
+        $oldImageStmt->execute([
+            ':id' => $techId
+        ]);
+        $oldImageName = $oldImageStmt->fetchColumn();
+
+        // supprime l'ancienne image du dossier
+        $oldFilePath = $target_dir . $oldImageName;
+        if (file_exists($oldFilePath)) {
+            unlink($oldFilePath);
+        }
+
+        // nouvelle image
+        if (file_exists($target_file)) {
+            $_SESSION['erreur'] = "Erreur - Une image existe déjà";
+            $_POST['updateTech'] = $techId;
+        } else {
+            if (move_uploaded_file($imageBin, $target_file)) {
+                $imageStmt = "UPDATE image SET nom = :nom, type = :type, 
+                taille = :taille, bin = :bin
+                WHERE id = :id";
+                $imageStmt = $this->bdd->prepare($imageStmt);
+                $imageStmt->execute([
+                    ':id' => $techId,
+                    ':nom' => $imageName,
+                    ':type' => $imageType,
+                    ':taille' => $imageSize,
+                    ':bin' => $target_file
+                ]);
+            } else {
+                $_SESSION['erreur'] = "Erreur - déplacement de l'image impossible.";
+                $_POST['updateTech'] = $techId;
+            }
+        }
+    }
+
     // méthode pour supprimer l'image d'une tech
     public function deleteImageTech($techId)
     {

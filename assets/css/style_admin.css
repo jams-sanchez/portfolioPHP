@@ -126,13 +126,29 @@ body {
     gap: 1.3rem;
 }
 
-.input-text {
-    height: 2rem;
+.input-text,
+.select-button,
+input[type=file]::file-selector-button {
+    height: fit-content;
     padding: 0.5rem;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
 }
 
-.input-text:focus {
-    outline: 2px solid #eca726
+.input-text:focus,
+.select-button:focus {
+    
+    outline: 2px solid #fdcc2b
+}
+
+.select-button,
+input[type=file]::file-selector-button {
+    cursor: pointer;
+}
+
+input[type=file]::file-selector-button:hover {
+    background-color: #fdcc2b;
+    border: 1px solid #f0c129;
 }
 
 .menu-admin {
@@ -219,6 +235,8 @@ body {
 }
 
 
+
+
 /* Boutons*/
 
 .button-connexion {
@@ -270,6 +288,10 @@ body {
     background-color: rgb(236, 216, 35);
 }
 
+.select-button {
+    width:max-content;
+    padding: 0.5rem;
+}
 
 /* footer */
 
