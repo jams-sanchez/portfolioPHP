@@ -14,6 +14,7 @@ class Image extends Bdd
         $this->imageId = $imageId;
     }
 
+    // methode pour recupere l'id de la derniere image uploader
     public function getLastImageId(): int
     {
         $this->imageId = $this->bdd->lastInsertId();
@@ -53,7 +54,7 @@ class Image extends Bdd
     }
 
     // méthode pour modifier l'image d'une tech
-    public function updateImageTech($techId, $imageName, $imageType, $imageSize, $imageBin)
+    public function updateImageTech($techId, $imageName, $imageType, $imageSize, $imageBin): void
     {
         $target_dir = "../assets/img/";
         $target_file = $target_dir . basename($imageName);
@@ -100,7 +101,7 @@ class Image extends Bdd
     }
 
     // méthode pour supprimer l'image d'une tech
-    public function deleteImageTech($techId)
+    public function deleteImageTech($techId): void
     {
         // récupère l'id de l'image via l'id de la tech
         $imageStmt = "SELECT image_id 

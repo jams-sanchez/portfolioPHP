@@ -31,7 +31,7 @@ if (isset($_POST['validTech'])) {
         $_POST['addTech'] = "+";
     } else {
 
-        $techName = htmlentities($_POST['newTech']);
+        $techName = htmlspecialchars($_POST['newTech']);
         $techCatId = $_POST['chooseCat'];
 
         $imageName = $_FILES['addImage']['name'];
@@ -110,6 +110,8 @@ if (isset($_POST['validUpdate'])) {
     }
 
     $_SESSION['succes'] = "Succès - Tech mise à jour";
+    unset($_SESSION['selectedName']);
+    unset($_SESSION['selectedId']);
     header('refresh: 1; url=../pages/admin-tech.php?page=tech');
 }
 
