@@ -1,7 +1,4 @@
 <?php
-// a supprimer apres test
-require('../config.php');
-// 
 
 require_once('../models/Bdd.php');
 
@@ -98,6 +95,25 @@ class Tech extends Bdd
             ':tech_cat_id' => $techCatId
         ]);
     }
+
+    // méthode pour récupèrer l'id et le nom d'une tech front et back
+    public function getTechNameId()
+    {
+        $techStmt = "SELECT tech.id, tech.nom
+        FROM tech
+        JOIN tech_cat ON tech.tech_cat_id = tech_cat.id
+        WHERE tech_cat.nom = 'front' OR tech_cat.nom = 'back'";
+        $techStmt = $this->bdd->prepare($techStmt);
+        $techStmt->execute();
+        $techStmt = $techStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $techNameId = [];
+        foreach ($techStmt as $key => $value) {
+            $techNameId[$value['id']] = $value['nom'];
+        }
+
+        return $techNameId;
+    }
 }
 
 // $tech = new Tech();
@@ -105,3 +121,4 @@ class Tech extends Bdd
 // $tech->updateTech(45, 'testPHP', 3);
 // var_dump($tech->getTechById(45));
 // var_dump($tech->getTechById(45));
+// var_dump($tech->getTechNameId());

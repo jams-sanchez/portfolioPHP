@@ -31,7 +31,7 @@ if (isset($_POST['validTech'])) {
         $_POST['addTech'] = "+";
     } else {
 
-        $techName = htmlentities($_POST['newTech']);
+        $techName = htmlspecialchars($_POST['newTech']);
         $techCatId = $_POST['chooseCat'];
 
         $imageName = $_FILES['addImage']['name'];
@@ -74,8 +74,11 @@ if (isset($_POST['updateTech'])) {
     }
     $_SESSION['selectedId'] = $selectedTech['id'];
     $_SESSION['selectedName'] = $selectedTech['nom'];
+}
 
-    var_dump($selectedTech);
+if (isset($_POST['cancelTech'])) {
+    unset($_SESSION['selectedId']);
+    unset($_SESSION['selectedName']);
 }
 
 // modification infos et image
@@ -112,6 +115,8 @@ if (isset($_POST['validUpdate'])) {
     }
 
     $_SESSION['succes'] = "Succès - Tech mise à jour";
+    unset($_SESSION['selectedName']);
+    unset($_SESSION['selectedId']);
     header('refresh: 1; url=../pages/admin-tech.php?page=tech');
 }
 
@@ -121,7 +126,7 @@ if (isset($_POST['deleteTech'])) {
 
     $techId = $_POST['deleteTech'];
 
-    // supprimer l'image de la tech supprime la tech associé
+    // supprimer l'image de la tech, supprime la tech associé
     $image->deleteImageTech($techId);
     $_SESSION['succes'] = "Succès - Tech supprimée";
     header('refresh: 1; url=../pages/admin-tech.php?page=tech');
@@ -131,6 +136,9 @@ if (isset($_POST['deleteTech'])) {
 
 
 <?php include_once('../include/header-admin.php'); ?>
+
+<?= var_dump($_SESSION); ?>
+<?= var_dump($_POST); ?>
 
 <?php if (isset($_SESSION['userPseudo'])): ?>
     <main class="main-tech">
@@ -145,7 +153,7 @@ if (isset($_POST['deleteTech'])) {
 
 
         <!-- ajout de tech -->
-        <?php if (isset($_POST['addTech'])) : ?>
+        <?php if (isset($_POST['addTech'])): ?>
 
             <form action="" method="post" enctype="multipart/form-data" class="box-tech">
                 <!-- add nom -->
@@ -184,7 +192,8 @@ if (isset($_POST['deleteTech'])) {
                 <!-- update nom -->
                 <div class="tech-input">
                     <label for="updateTech" class="bold">Nom : </label>
-                    <input type="text" name="updateName" id="updateName" class="input-text" placeholder="<?= $selectedTech['nom']; ?>">
+                    <input type="text" name="updateName" id="updateName" class="input-text"
+                        placeholder="<?= $selectedTech['nom']; ?>">
                 </div>
                 <!-- update categorie -->
                 <div class="tech-input">
@@ -192,7 +201,7 @@ if (isset($_POST['deleteTech'])) {
                     <select class="select-button" name="updateCat" id="updateCat">
                         <option value="<?= $selectedTech['catId']; ?>"><?= $selectedTech['categorie']; ?></option>
                         <?php foreach ($listCat as $id => $categorie): ?>
-                            <?php if ($categorie != $selectedTech['categorie']) : ?>
+                            <?php if ($categorie != $selectedTech['categorie']): ?>
                                 <option value="<?= $id ?>"><?= $categorie ?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -231,8 +240,10 @@ if (isset($_POST['deleteTech'])) {
                             <img src="<?= $tech['image']; ?>" class="logo" />
                         </div>
                         <form action="" method="post" class="duo-button">
-                            <button type="submit" name="deleteTech" class="button-red" value="<?= $tech['id']; ?>">Supprimer</button>
-                            <button type="submit" name="updateTech" class="button-yellow" value="<?= $tech['id']; ?>">Modifier</button>
+                            <button type="submit" name="deleteTech" class="button-red"
+                                value="<?= $tech['id']; ?>">Supprimer</button>
+                            <button type="submit" name="updateTech" class="button-yellow"
+                                value="<?= $tech['id']; ?>">Modifier</button>
                         </form>
                     </div>
                 <?php endforeach; ?>
