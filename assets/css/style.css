@@ -59,7 +59,7 @@ a:hover {
 /* HAUT de PAGE */
 
 header {
-    background-image: url(/images/HEADER.webp);
+    background-image: url(../img/HEADER.webp);
     background-size:cover;
     background-repeat: no-repeat;
     background-position: top;
@@ -187,6 +187,7 @@ header::after {
     justify-content: center;
     font-size: 1.5em ;
     color: var(--main-text);
+    text-transform: uppercase;
 }
 
 .logo {
@@ -200,7 +201,7 @@ header::after {
     border-radius: 50%;
 }
 
-/* Boite */
+/* border bottom comp box */
 
 .comp-box::after {
     content: "";
@@ -391,6 +392,10 @@ footer h2 {
     text-align: center;
 }
 
+.copyright a {
+    color: var(--tech-text);
+}
+
 /*  media max 1023px */
 
 @media screen and (min-width:1980px) {
@@ -518,11 +523,6 @@ footer h2 {
 
     .logo img {
         width: 32px;
-    }
-
-    .right,
-    .left {
-        align-items: center;
     }
 
     .project-box {

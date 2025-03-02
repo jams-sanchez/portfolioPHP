@@ -1,6 +1,7 @@
 <?php
 
-require_once('../models/Bdd.php');
+// require_once('../models/Bdd.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/portfolioPHP/models/Bdd.php');
 
 class Image extends Bdd
 {

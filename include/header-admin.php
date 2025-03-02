@@ -3,13 +3,13 @@
 if (isset($_POST['logout'])) {
     unset($_SESSION);
     session_destroy();
-    header('location: ../pages/admin.php');
+    header('location: ../index.php');
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -22,13 +22,11 @@ if (isset($_POST['logout'])) {
 
     <header class="header">
 
-
-
         <!-- si page de connexion -->
 
         <?php if (!isset($_SESSION['userPseudo'])): ?>
             <div class="return-portfolio">
-                <a href="#">Retour Portfolio</a>
+                <a href="../index.php">Retour Portfolio</a>
             </div>
         <?php else: ?>
 

@@ -316,7 +316,7 @@ if (isset($_POST['deleteProjet'])) {
                     <div class="box-projet">
                         <div class="box-projet-info">
                             <div class="projet-img">
-                                <img src="<?= $info['image'] ?>" />
+                                <img src="<?= "../assets/img/projets/" . $info['image'] ?>" />
                             </div>
                             <section class="text-projet-info">
                                 <div class="projet-title-box">
