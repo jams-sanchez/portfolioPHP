@@ -115,10 +115,3 @@ class Tech extends Bdd
         return $techNameId;
     }
 }
-
-// $tech = new Tech();
-// var_dump($tech->getTechById(45));
-// $tech->updateTech(45, 'testPHP', 3);
-// var_dump($tech->getTechById(45));
-// var_dump($tech->getTechById(45));
-// var_dump($tech->getTechNameId());

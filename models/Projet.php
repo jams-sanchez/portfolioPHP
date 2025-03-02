@@ -164,8 +164,3 @@ class Projet extends Bdd
         }
     }
 }
-
-// $projet = new Projet();
-// $selectedProjet = $projet->getProjetById(9);
-
-// echo $selectedProjet['nom'];
