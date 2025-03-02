@@ -38,31 +38,33 @@ if (isset($_POST['logout'])) {
 
                     <!-- si page != admin home -->
                     <div class="cercle">
-                        <a href="admin.php?page=home">Admin Home</a>
+                        <a href="admin.php?page=home"><img src="../assets/img/home.png" class="logo-nav" /></a>
                     </div>
 
                     <nav class="nav-header">
+
                         <?php if ($_GET['page'] != 'projets'): ?>
                             <a href="admin-projets.php?page=projets">Projets</a>
+                        <?php else: ?>
+                            <p class="yellow-text">Projets</p>
                         <?php endif; ?>
 
                         <?php if ($_GET['page'] != 'tech'): ?>
-                            <a href="admin-tech.php?page=tech">Tech</a>
+                            <a href="admin-tech.php?page=tech">Techs</a>
+                        <?php else: ?>
+                            <p class="yellow-text">Techs</p>
                         <?php endif; ?>
 
-                        <?php if ($_GET['page'] != 'images'): ?>
-                            <a href="admin-images.php?page=images">Images</a>
-                        <?php endif; ?>
 
                     </nav>
                     <form action="" method="post">
-                        <button type="submit" name="logout" class="cercle ">Logout</button>
+                        <button type="submit" name="logout" class="cercle"><img src="../assets/img/logout.png" class="logo-nav" /></button>
                     </form>
 
 
                 <?php else: ?>
                     <form action="" method="post">
-                        <button type="submit" name="logout" class="cercle">Logout</button>
+                        <button type="submit" name="logout" class="cercle"><img src="../assets/img/logout.png" class="logo-nav" /></button>
                     </form>
                 <?php endif; ?>
             <?php endif; ?>

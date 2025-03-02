@@ -187,8 +187,6 @@ if (isset($_POST['deleteProjet'])) {
 
 <?php include_once('../include/header-admin.php'); ?>
 
-<?= var_dump($_SESSION); ?>
-<?= var_dump($_POST); ?>
 
 <?php if (isset($_SESSION['userPseudo'])): ?>
     <main class="main-projet">
@@ -240,8 +238,8 @@ if (isset($_POST['deleteProjet'])) {
                     <input type="file" name="addImage" id="addImage" class="input-file" accept=".jpg,.jpeg,.webp,.png" require>
                 </div>
                 <div class="duo-button">
-                    <input type="submit" name="cancelProjet" class="button-red" value="Annuler">
-                    <input type="submit" name="validProjet" class="button-green" value="Valider">
+                    <button type="submit" name="cancelProjetP" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
+                    <button type="submit" name="validUpdateP" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
 
                 </div>
 
@@ -276,13 +274,14 @@ if (isset($_POST['deleteProjet'])) {
                         <?php foreach ($listTech as $id => $nom): ?>
                             <?php if (in_array($nom, $_SESSION['projetTechs'])): ?>
                                 <div class="tech-box">
-                                    <label for="updateTech"><?= $nom ?></label>
-                                    <input type="checkbox" name="updateTech[]" id="updateTech" value="<?= $id ?>" checked>
+                                    <label for="<?= $nom ?>"><?= $nom ?></label>
+                                    <input type="checkbox" name="updateTech[]" id="<?= $nom ?>" value="<?= $id ?>" checked>
+
                                 </div>
                             <?php else: ?>
                                 <div class="tech-box">
-                                    <label for="updateTech"><?= $nom ?></label>
-                                    <input type="checkbox" name="updateTech[]" id="updateTech" value="<?= $id ?>">
+                                    <label for="<?= $nom ?>"><?= $nom ?></label>
+                                    <input type="checkbox" name="updateTech[]" id="<?= $nom ?>" value="<?= $id ?>">
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
@@ -295,8 +294,8 @@ if (isset($_POST['deleteProjet'])) {
                         require>
                 </div>
                 <div class="duo-button">
-                    <input type="submit" name="cancelProjetP" class="button-red" value="Annuler">
-                    <input type="submit" name="validUpdateP" class="button-green" value="Valider">
+                    <button type="submit" name="cancelProjetP" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
+                    <button type="submit" name="validUpdateP" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
 
                 </div>
 
@@ -307,7 +306,7 @@ if (isset($_POST['deleteProjet'])) {
             <!-- affiche toutes les techs -->
 
             <form action="" method="post" class="button-add-box">
-                <input type="submit" name="addProjet" class="button-green bold" value="+">
+                <button type="submit" name="addProjet" class="button"><img src="../assets/img/add.png" /></button>
             </form>
 
             <section class="show-projet">
@@ -336,8 +335,8 @@ if (isset($_POST['deleteProjet'])) {
                             </section>
                         </div>
                         <form action="" method="post" class="duo-button">
-                            <button type="submit" name="deleteProjet" class="button-red" value="<?= $projet ?>">Supprimer</button>
-                            <button type="submit" name="updateProjet" class="button-yellow" value="<?= $projet ?>">Modifier</button>
+                            <button type="submit" name="deleteProjet" class="small-button" value="<?= $projet ?>"><img src="../assets/img/delete.png" /></button>
+                            <button type="submit" name="updateProjet" class="small-button" value="<?= $projet ?>"><img src="../assets/img/edit.png" /></button>
                         </form>
                     </div>
                 <?php endforeach; ?>

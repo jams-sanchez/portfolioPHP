@@ -36,7 +36,7 @@ if (isset($_POST['connexion'])) {
                 <p>Mot de passe</p>
                 <input type="password" name="userPassword" class="input-text">
             </div>
-            <input type="submit" name="connexion" class="button-connexion" value="Connexion">
+            <button type="submit" name="connexion" class="button" value="Connexion"><img src="../assets/img/login.png" /></button>
 
             <?php if (isset($_SESSION['message'])): ?>
                 <p class="alert"><?= $_SESSION['message']; ?></p>
@@ -45,10 +45,9 @@ if (isset($_POST['connexion'])) {
         <!-- sinon -->
     <?php else: ?>
         <nav class="menu-admin">
-            <a href="../pages/admin-compte.php?page=compte">Compte</a>
-            <a href="../pages/admin-projets.php?page=projets">Projets</a>
-            <a href="../pages/admin-tech.php?page=tech">Tech</a>
-            <a href="../pages/admin-images.php?page=images">Images</a>
+            <a href="../pages/admin-compte.php?page=compte"><img src="../assets/img/settings.png" /> Compte</a>
+            <a href="../pages/admin-projets.php?page=projets"><img src="../assets/img/projet.png" /> Projets</a>
+            <a href="../pages/admin-tech.php?page=tech"><img src="../assets/img/techs.png" /> Techs</a>
         </nav>
     <?php endif; ?>
 

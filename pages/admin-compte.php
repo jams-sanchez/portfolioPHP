@@ -44,15 +44,15 @@ if (isset($_POST['validPseudo'])) {
             <?php if (isset($_POST['updatePseudo'])): ?>
                 <div class="title-input">
                     <label for="newPseudo">Pseudo : </label>
-                    <input type="text" name="newPseudo" id="newPseudo" class="input-text">
+                    <input type="text" name="newPseudo" id="newPseudo" class="input-text" placeholder="<?= $_SESSION['userPseudo']; ?>">
                     <ul class="pseudo-condition">
                         <li>- doit avoir au moins 3 lettres</li>
                         <li>- maximum 20 caratères</li>
                         <li>- aucun espace, ni tiret, ni caratères spéciaux</li>
                     </ul>
-                    <div class="duo-button">
-                        <input type="submit" name="cancelPseudo" class="button-red" value="Annuler">
-                        <input type="submit" name="validPseudo" class="button-green" value="Valider">
+                    <div class="button-account">
+                        <button type="submit" name="cancelPseudo" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
+                        <button type="submit" name="validPseudo" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
                     </div>
                 </div>
 
@@ -62,17 +62,27 @@ if (isset($_POST['validPseudo'])) {
                     <label for="newPass">Mot de passe: </label>
                     <input type="password" name="currentPass" id="newPass" placeholder="mot de passe actuel" class="input-text">
                     <input type="password" name="newPass" id="newPass" placeholder="nouveau mot de passe" class="input-text">
-                    <div class="duo-button">
-                        <input type="submit" name="cancelPass" class="button-red" value="Annuler">
-                        <input type="submit" name="validPass" class="button-green" value="Valider">
+                    <div class="button-account">
+                        <button type="submit" name="cancelPass" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
+                        <button type="submit" name="validPass" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
                     </div>
                 </div>
             <?php else: ?>
                 <div class="title-input">
-                    <p>Pseudo : <span><?= $_SESSION['userPseudo']; ?></span></p>
-                    <input type="submit" name="updatePseudo" class="button-yellow" value="Modifier">
-                    <p>Mot de passe: <span>***</span></p>
-                    <input type="submit" name="updatePass" class="button-yellow" value="Modifier">
+                    <div class="pseudo-box">
+                        <p class="bold">Pseudo : </p>
+                        <p><?= $_SESSION['userPseudo']; ?></p>
+                        <button type="submit" name="updatePseudo" class="smaller-button" value="Modifier">
+                            <img src="../assets/img/edit.png" />
+                        </button>
+                    </div>
+                    <div class="pseudo-box">
+                        <p class="bold">Mot de passe: </p>
+                        <p>****</p>
+                        <button type="submit" name="updatePass" class="smaller-button" value="Modifier">
+                            <img src="../assets/img/edit.png" />
+                        </button>
+                    </div>
                 </div>
                 <!-- message -->
                 <?php if (isset($_SESSION['succes'])): ?>
