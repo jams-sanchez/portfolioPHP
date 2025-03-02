@@ -225,7 +225,7 @@ if (isset($_POST['deleteTech'])) {
             <!-- affiche toutes les techs -->
 
             <form action="" method="post" class="button-add-box">
-                <button type="submit" name="addTech" class="button"><img src="../assets/img/admin/add.png" /></button>
+                <button type="submit" name="addTech" class="button" value="+"><img src="../assets/img/admin/add.png" /></button>
             </form>
 
             <section class="show-tech">
