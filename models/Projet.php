@@ -67,6 +67,7 @@ class Projet extends Bdd
         JOIN projet_tech ON projet_tech.projet_id = projet.id
         JOIN tech ON projet_tech.tech_id = tech.id
         JOIN image ON projet.image_id = image.id
+        ORDER BY id DESC
         ";
         $stmt = $this->bdd->prepare($stmt);
         $stmt->execute();
