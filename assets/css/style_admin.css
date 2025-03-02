@@ -38,9 +38,15 @@ body {
     text-transform: uppercase;
 }
 
+.logo-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .logo {
-    width: 10rem;
-    height: 10rem;
+    width: 5rem;
+    height: auto;
 }
 
 /* header */
@@ -155,6 +161,7 @@ body {
 .input-text,
 .select-button,
 input[type=file]::file-selector-button {
+    width: 100%;
     height: fit-content;
     padding: 0.5rem;
     border: 1px solid #cfcfcf;
@@ -227,8 +234,7 @@ input[type=file]::file-selector-button:hover {
 .box-tech {
     background-color: #e7e7e7;
     width: 20rem;
-    min-height: 15rem;
-    padding: 1.5rem 1.5rem 3rem;
+    padding: 1.5rem 1.5rem 2.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -263,7 +269,7 @@ input[type=file]::file-selector-button:hover {
 .tech-input {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.7rem;
 }
 
@@ -279,8 +285,8 @@ input[type=file]::file-selector-button:hover {
 
 .box-projet {
     background-color: #e7e7e7;
-    min-width: 20rem;
-    width: 25%;
+    min-width: 22rem;
+    width: 40%;
     min-height: 15rem;
     padding: 1rem 1rem 2.5rem;
     height: auto;
@@ -289,6 +295,13 @@ input[type=file]::file-selector-button:hover {
     border: 2px solid #dddddd;
     gap: 1rem;
     position: relative;
+}
+
+.box-projet a {
+    color: #222222;
+}
+.box-projet a:hover {
+    color: #f0c129;
 }
 
 .box-projet-info {
@@ -418,7 +431,8 @@ input[type=checkbox] {
 }
 
 .select-button {
-    width:max-content;
+    text-align: center;
+    width:100%;
     padding: 0.5rem;
 }
 

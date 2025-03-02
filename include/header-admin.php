@@ -38,7 +38,7 @@ if (isset($_POST['logout'])) {
 
                     <!-- si page != admin home -->
                     <div class="cercle">
-                        <a href="admin.php?page=home"><img src="../assets/img/home.png" class="logo-nav" /></a>
+                        <a href="admin.php?page=home"><img src="../assets/img/admin/home.png" class="logo-nav" /></a>
                     </div>
 
                     <nav class="nav-header">
@@ -58,13 +58,13 @@ if (isset($_POST['logout'])) {
 
                     </nav>
                     <form action="" method="post">
-                        <button type="submit" name="logout" class="cercle"><img src="../assets/img/logout.png" class="logo-nav" /></button>
+                        <button type="submit" name="logout" class="cercle"><img src="../assets/img/admin/logout.png" class="logo-nav" /></button>
                     </form>
 
 
                 <?php else: ?>
                     <form action="" method="post">
-                        <button type="submit" name="logout" class="cercle"><img src="../assets/img/logout.png" class="logo-nav" /></button>
+                        <button type="submit" name="logout" class="cercle"><img src="../assets/img/admin/logout.png" class="logo-nav" /></button>
                     </form>
                 <?php endif; ?>
             <?php endif; ?>

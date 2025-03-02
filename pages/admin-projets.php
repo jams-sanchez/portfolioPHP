@@ -6,8 +6,11 @@ require_once('../models/Projet.php');
 require_once('../models/Tech.php');
 require_once('../models/Image.php');
 
-unset($_SESSION['succes']);
-unset($_SESSION['erreur']);
+if (isset($_POST['addProjet']) || isset($_POST['updateProjet'])) {
+    unset($_SESSION['succes']);
+    unset($_SESSION['erreur']);
+}
+
 
 $projet = new Projet();
 $tech = new Tech();
@@ -60,14 +63,13 @@ if (isset($_POST['validProjet'])) {
             $_SESSION['erreur'] = "Le type de fichier n'est pas autorisé. Seuls les fichiers JPEG, PNG et WEBP sont acceptés.";
         } else {
 
-            if ($image->addImage($imageName, $imageType, $imageSize, $imageBin)) {
+            if ($image->addImageProjet($imageName, $imageType, $imageSize, $imageBin)) {
 
                 // ajout des infos du projet + lie image
                 $imageId = $image->getLastImageId();
                 $projet->insertProject($projetName, $projetDesc, $projetLink, $projetTech, $imageId);
 
                 $_SESSION['succes'] = "Succès - Projet ajouté";
-                $_POST['addProjet'] = "+";
                 header('refresh: 1; url=../pages/admin-projets.php?page=projets');
                 exit();
             }
@@ -90,7 +92,7 @@ if (isset($_POST['updateProjet'])) {
 }
 
 // modification projet et son image
-if (isset($_POST['validUpdateP'])) {
+if (isset($_POST['validUpdate'])) {
     $idProjet = $_SESSION['projetId'];
 
     // modification infos du projet
@@ -141,7 +143,7 @@ if (isset($_POST['validUpdateP'])) {
         } elseif (!in_array($imageType, ['image/jpeg', 'image/png', 'image/webp'])) {
             $_SESSION['erreur'] = "Le type de fichier n'est pas autorisé. Seuls les fichiers JPEG, PNG et WEBP sont acceptés.";
         } else {
-            $image->updateImageTech($idProjet, $imageName, $imageType, $imageSize, $imageBin);
+            $image->updateImageProjet($idProjet, $imageName, $imageType, $imageSize, $imageBin);
         }
     }
 
@@ -238,8 +240,8 @@ if (isset($_POST['deleteProjet'])) {
                     <input type="file" name="addImage" id="addImage" class="input-file" accept=".jpg,.jpeg,.webp,.png" require>
                 </div>
                 <div class="duo-button">
-                    <button type="submit" name="cancelProjetP" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
-                    <button type="submit" name="validUpdateP" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
+                    <button type="submit" name="cancelProjet" class="small-button" value="Annuler"><img src="../assets/img/admin/cancel.png" /></button>
+                    <button type="submit" name="validProjet" class="small-button" value="Valider"><img src="../assets/img/admin/valid.png" /></button>
 
                 </div>
 
@@ -294,8 +296,8 @@ if (isset($_POST['deleteProjet'])) {
                         require>
                 </div>
                 <div class="duo-button">
-                    <button type="submit" name="cancelProjetP" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
-                    <button type="submit" name="validUpdateP" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
+                    <button type="submit" name="cancelProjet" class="small-button" value="Annuler"><img src="../assets/img/admin/cancel.png" /></button>
+                    <button type="submit" name="validUpdate" class="small-button" value="Valider"><img src="../assets/img/admin/valid.png" /></button>
 
                 </div>
 
@@ -306,7 +308,7 @@ if (isset($_POST['deleteProjet'])) {
             <!-- affiche toutes les techs -->
 
             <form action="" method="post" class="button-add-box">
-                <button type="submit" name="addProjet" class="button"><img src="../assets/img/add.png" /></button>
+                <button type="submit" name="addProjet" class="button"><img src="../assets/img/admin/add.png" /></button>
             </form>
 
             <section class="show-projet">
@@ -330,13 +332,13 @@ if (isset($_POST['deleteProjet'])) {
                                 </div>
                                 <article class="projet-text-box">
                                     <p><?= $info['desc'] ?></p>
-                                    <a href="<?= $info['lien'] ?>" target="_blank">Github</a>
+                                    <a class="bold" href="<?= $info['lien'] ?>" target="_blank">Github</a>
                                 </article>
                             </section>
                         </div>
                         <form action="" method="post" class="duo-button">
-                            <button type="submit" name="deleteProjet" class="small-button" value="<?= $projet ?>"><img src="../assets/img/delete.png" /></button>
-                            <button type="submit" name="updateProjet" class="small-button" value="<?= $projet ?>"><img src="../assets/img/edit.png" /></button>
+                            <button type="submit" name="deleteProjet" class="small-button" value="<?= $projet ?>"><img src="../assets/img/admin/delete.png" /></button>
+                            <button type="submit" name="updateProjet" class="small-button" value="<?= $projet ?>"><img src="../assets/img/admin/edit.png" /></button>
                         </form>
                     </div>
                 <?php endforeach; ?>

@@ -51,8 +51,8 @@ if (isset($_POST['validPseudo'])) {
                         <li>- aucun espace, ni tiret, ni caratères spéciaux</li>
                     </ul>
                     <div class="button-account">
-                        <button type="submit" name="cancelPseudo" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
-                        <button type="submit" name="validPseudo" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
+                        <button type="submit" name="cancelPseudo" class="small-button" value="Annuler"><img src="../assets/img/admin/cancel.png" /></button>
+                        <button type="submit" name="validPseudo" class="small-button" value="Valider"><img src="../assets/img/admin/valid.png" /></button>
                     </div>
                 </div>
 
@@ -63,8 +63,8 @@ if (isset($_POST['validPseudo'])) {
                     <input type="password" name="currentPass" id="newPass" placeholder="mot de passe actuel" class="input-text">
                     <input type="password" name="newPass" id="newPass" placeholder="nouveau mot de passe" class="input-text">
                     <div class="button-account">
-                        <button type="submit" name="cancelPass" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
-                        <button type="submit" name="validPass" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
+                        <button type="submit" name="cancelPass" class="small-button" value="Annuler"><img src="../assets/img/admin/cancel.png" /></button>
+                        <button type="submit" name="validPass" class="small-button" value="Valider"><img src="../assets/img/admin/valid.png" /></button>
                     </div>
                 </div>
             <?php else: ?>
@@ -73,14 +73,14 @@ if (isset($_POST['validPseudo'])) {
                         <p class="bold">Pseudo : </p>
                         <p><?= $_SESSION['userPseudo']; ?></p>
                         <button type="submit" name="updatePseudo" class="smaller-button" value="Modifier">
-                            <img src="../assets/img/edit.png" />
+                            <img src="../assets/img/admin/edit.png" />
                         </button>
                     </div>
                     <div class="pseudo-box">
                         <p class="bold">Mot de passe: </p>
                         <p>****</p>
                         <button type="submit" name="updatePass" class="smaller-button" value="Modifier">
-                            <img src="../assets/img/edit.png" />
+                            <img src="../assets/img/admin/edit.png" />
                         </button>
                     </div>
                 </div>
