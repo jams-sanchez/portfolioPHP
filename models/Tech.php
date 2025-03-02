@@ -1,6 +1,6 @@
 <?php
 
-require_once('../models/Bdd.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/portfolioPHP/models/Bdd.php');
 
 class Tech extends Bdd
 {
@@ -113,5 +113,26 @@ class Tech extends Bdd
         }
 
         return $techNameId;
+    }
+
+    // méthode pour récuperer les techs par categorie
+    public function getTechByCat(): array
+    {
+        $stmt = "SELECT tech.nom AS tech, 
+        tech_cat.nom AS categorie, 
+        image.nom AS image
+        FROM tech
+        JOIN tech_cat ON tech.tech_cat_id = tech_cat.id
+        JOIN image ON tech.image_id = image.id";
+        $stmt = $this->bdd->prepare($stmt);
+        $stmt->execute();
+        $stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $categorie = [];
+        foreach ($stmt as $key => $value) {
+            $categorie[$value['categorie']][$value['tech']] = $value['image'];
+        }
+
+        return $categorie;
     }
 }

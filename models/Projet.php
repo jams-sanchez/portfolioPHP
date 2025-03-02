@@ -1,10 +1,6 @@
 <?php
-// a supprimer apres test
-require('../config.php');
-// 
 
-
-require_once('../models/Bdd.php');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/portfolioPHP/models/Bdd.php');
 
 class Projet extends Bdd
 {
@@ -64,7 +60,7 @@ class Projet extends Bdd
     {
         $stmt = "SELECT projet.id, projet.nom, projet.description, 
         projet.lien, projet.image_id,
-        image.bin AS image,
+        image.nom AS image,
         tech.nom AS tech
         FROM projet
         JOIN projet_tech ON projet_tech.projet_id = projet.id
