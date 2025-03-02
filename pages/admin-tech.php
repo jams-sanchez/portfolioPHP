@@ -137,9 +137,6 @@ if (isset($_POST['deleteTech'])) {
 
 <?php include_once('../include/header-admin.php'); ?>
 
-<?= var_dump($_SESSION); ?>
-<?= var_dump($_POST); ?>
-
 <?php if (isset($_SESSION['userPseudo'])): ?>
     <main class="main-tech">
 
@@ -177,9 +174,8 @@ if (isset($_POST['deleteTech'])) {
                     <input type="file" name="addImage" id="addImage" class="input-file" accept=".jpg,.jpeg,.webp,.png" require>
                 </div>
                 <div class="duo-button">
-                    <input type="submit" name="cancelTech" class="button-red" value="Annuler">
-                    <input type="submit" name="validTech" class="button-green" value="Valider">
-
+                    <button type="submit" name="cancelTech" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
+                    <button type="submit" name="validTech" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
                 </div>
 
             </form>
@@ -215,9 +211,8 @@ if (isset($_POST['deleteTech'])) {
                 </div>
 
                 <div class="duo-button">
-                    <input type="submit" name="cancelTech" class="button-red" value="Annuler">
-                    <input type="submit" name="validUpdate" class="button-green" value="Valider">
-
+                    <button type="submit" name="cancelTech" class="small-button" value="Annuler"><img src="../assets/img/cancel.png" /></button>
+                    <button type="submit" name="validUpdate" class="small-button" value="Valider"><img src="../assets/img/valid.png" /></button>
                 </div>
 
             </form>
@@ -228,7 +223,7 @@ if (isset($_POST['deleteTech'])) {
             <!-- affiche toutes les techs -->
 
             <form action="" method="post" class="button-add-box">
-                <input type="submit" name="addTech" class="button-green bold" value="+">
+                <button type="submit" name="addTech" class="button"><img src="../assets/img/add.png" /></button>
             </form>
 
             <section class="show-tech">
@@ -240,10 +235,8 @@ if (isset($_POST['deleteTech'])) {
                             <img src="<?= $tech['image']; ?>" class="logo" />
                         </div>
                         <form action="" method="post" class="duo-button">
-                            <button type="submit" name="deleteTech" class="button-red"
-                                value="<?= $tech['id']; ?>">Supprimer</button>
-                            <button type="submit" name="updateTech" class="button-yellow"
-                                value="<?= $tech['id']; ?>">Modifier</button>
+                            <button type="submit" name="deleteTech" class="small-button" value="<?= $tech['id']; ?>"><img src="../assets/img/delete.png" /></button>
+                            <button type="submit" name="updateTech" class="small-button" value="<?= $tech['id']; ?>"><img src="../assets/img/edit.png" /></button>
                         </form>
                     </div>
                 <?php endforeach; ?>
