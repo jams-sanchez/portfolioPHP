@@ -6,10 +6,9 @@ require_once('../models/Projet.php');
 require_once('../models/Tech.php');
 require_once('../models/Image.php');
 
-if (isset($_POST['addProjet']) || isset($_POST['updateProjet'])) {
-    unset($_SESSION['succes']);
-    unset($_SESSION['erreur']);
-}
+
+unset($_SESSION['succes']);
+unset($_SESSION['erreur']);
 
 
 $projet = new Projet();
@@ -70,8 +69,8 @@ if (isset($_POST['validProjet'])) {
                 $projet->insertProject($projetName, $projetDesc, $projetLink, $projetTech, $imageId);
 
                 $_SESSION['succes'] = "Succès - Projet ajouté";
+                $_POST['addProjet'] = "+";
                 header('refresh: 1; url=../pages/admin-projets.php?page=projets');
-                exit();
             }
         }
     }
@@ -154,7 +153,6 @@ if (isset($_POST['validUpdate'])) {
     unset($_SESSION['projetLien']);
     unset($_SESSION['projetTechs']);
     header('refresh: 1; url=../pages/admin-projets.php?page=projets');
-    exit();
 }
 
 if (isset($_POST['cancelProjetP'])) {
@@ -165,7 +163,6 @@ if (isset($_POST['cancelProjetP'])) {
     unset($_SESSION['projetTechs']);
     unset($_POST);
     header('Location: ../pages/admin-projets.php?page=projets');
-    exit();
 }
 
 // SUPPRIMER UN PROJET
@@ -180,7 +177,6 @@ if (isset($_POST['deleteProjet'])) {
     $image->deleteImageProjet($projetId);
     $_SESSION['succes'] = "Succès - Projet supprimé";
     header('refresh: 1; url=../pages/admin-projets.php?page=projets');
-    exit();
 }
 
 
@@ -308,7 +304,7 @@ if (isset($_POST['deleteProjet'])) {
             <!-- affiche toutes les techs -->
 
             <form action="" method="post" class="button-add-box">
-                <button type="submit" name="addProjet" class="button"><img src="../assets/img/admin/add.png" /></button>
+                <button type="submit" name="addProjet" class="button" value="+"><img src="../assets/img/admin/add.png" /></button>
             </form>
 
             <section class="show-projet">

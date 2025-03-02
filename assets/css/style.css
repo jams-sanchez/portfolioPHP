@@ -394,6 +394,7 @@ footer h2 {
 
 .copyright a {
     color: var(--tech-text);
+    cursor: default;
 }
 
 /*  media max 1023px */
