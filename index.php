@@ -1,8 +1,8 @@
 <?php
 
-require('config.php');
-require_once('models/Tech.php');
-require_once('models/Projet.php');
+require('./config.php');
+require_once('./models/Tech.php');
+require_once('./models/Projet.php');
 
 $tech = new Tech();
 $techCategorie = $tech->getTechByCat();
@@ -54,9 +54,9 @@ $allProjet = $projet->getAllProjets();
         </p>
       </article>
       <!-- Photo de profil -->
-      <div class="profil-picture">
+      <figure class="profil-picture">
         <img src="assets/img/profile.webp" alt="james" />
-      </div>
+      </figure>
     </section>
     <!-- Titre catégorie -->
     <section class="cat-section">
@@ -70,11 +70,11 @@ $allProjet = $projet->getAllProjets();
         <?php foreach ($techCategorie as $cat => $image): ?>
           <article class="comp-box">
             <h3><?= $cat ?></h3>
-            <div class="logo">
+            <figure class="logo">
               <?php foreach ($image as $nom => $value): ?>
                 <img src="<?= "assets/img/techs/" . $value ?>" alt="<?= $nom ?>" />
               <?php endforeach; ?>
-            </div>
+            </figure>
           </article>
         <?php endforeach; ?>
       </div>
@@ -89,13 +89,13 @@ $allProjet = $projet->getAllProjets();
       <div class="project-group">
         <!-- Boite projet -->
         <?php foreach ($allProjet as $id => $info): ?>
-          <div class="project-box">
-            <div class="project-screenshot">
+          <article class="project-box">
+            <figure class="project-screenshot">
               <img
                 src="<?= "assets/img/projets/" . $info['image'] ?>"
                 alt="<?= "screenshot " . $info['nom'] ?>" />
-            </div>
-            <section class="project-description">
+            </figure>
+            <div class="project-description">
               <hgroup class="project-title">
                 <h3><?= $info['nom'] ?></h3>
                 <div class="project-tech">
@@ -105,15 +105,15 @@ $allProjet = $projet->getAllProjets();
                   <?php endforeach; ?>
                 </div>
               </hgroup>
-              <article class="project-text">
+              <div class="project-text">
                 <p><?= $info['desc'] ?></p>
                 <a
                   href="<?= $info['lien'] ?>"
                   class="bold-upp"
                   target="_blank">Github 🠒</a>
-              </article>
-            </section>
-          </div>
+              </div>
+            </div>
+          </article>
         <?php endforeach; ?>
       </div>
     </section>
