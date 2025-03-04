@@ -123,7 +123,8 @@ class Tech extends Bdd
         image.nom AS image
         FROM tech
         JOIN tech_cat ON tech.tech_cat_id = tech_cat.id
-        JOIN image ON tech.image_id = image.id";
+        JOIN image ON tech.image_id = image.id
+        ORDER BY tech_cat.id ASC";
         $stmt = $this->bdd->prepare($stmt);
         $stmt->execute();
         $stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
