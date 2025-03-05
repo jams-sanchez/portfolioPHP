@@ -339,8 +339,9 @@ if (isset($_POST['deleteProjet'])) {
                     </div>
                 <?php endforeach; ?>
             </section>
-        <?php endif; ?>
     </main>
 
     <?php include_once('../include/footer-admin.php'); ?>
+
+<?php endif; ?>
 <?php endif; ?>

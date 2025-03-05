@@ -198,7 +198,6 @@ header::after {
 }
 .logo img {
     width: 42px;
-    border-radius: 50%;
 }
 
 /* border bottom comp box */
@@ -451,7 +450,7 @@ footer h2 {
 
 /*  media max 770px */
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 870px) {
 
     main {
         gap: 3rem;
