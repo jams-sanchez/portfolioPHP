@@ -26,7 +26,13 @@ if (isset($_POST['connexion'])) {
 <main class="main-admin">
     <!-- si pas connecté -->
     <?php if (!isset($_SESSION['userPseudo'])) : ?>
+
         <form action="" method="post" class="login-box">
+
+            <?php if (isset($_SESSION['message'])): ?>
+                <p class="alert-red"><?= $_SESSION['message']; ?></p>
+            <?php endif; ?>
+
             <div class="title-input">
                 <p>Pseudo</p>
                 <input type="text" name="userPseudo" class="input-text">
@@ -36,10 +42,6 @@ if (isset($_POST['connexion'])) {
                 <input type="password" name="userPassword" class="input-text">
             </div>
             <button type="submit" name="connexion" class="button" value="Connexion"><img src="../assets/img/admin/login.png" /></button>
-
-            <?php if (isset($_SESSION['message'])): ?>
-                <p class="alert"><?= $_SESSION['message']; ?></p>
-            <?php endif; ?>
         </form>
         <!-- sinon -->
     <?php else: ?>
