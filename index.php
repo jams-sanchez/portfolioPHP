@@ -107,20 +107,22 @@ $allProjet = $projet->getAllProjets();
               </hgroup>
               <div class="project-text">
                 <p><?= $info['desc'] ?></p>
-                <?php if (!empty($info['lien'])): ?>
-                  <a
-                    href="<?= $info['lien'] ?>"
-                    class="bold-upp"
-                    target="_blank">Github 🠒
-                  </a>
-                <?php endif; ?>
-                <?php if (str_contains(strtolower($info['nom']), "jeu")): ?>
-                  <a
-                    href="/tiktaktoePHP"
-                    class="bold-upp"
-                    target="_blank">🠒 Jouer
-                  </a>
-                <?php endif; ?>
+                <div class="project-link">
+                  <?php if (!empty($info['lien'])): ?>
+                    <a
+                      href="<?= $info['lien'] ?>"
+                      class="bold-upp"
+                      target="_blank">🠒 Github
+                    </a>
+                  <?php endif; ?>
+                  <?php if (str_contains(strtolower($info['nom']), "jeu")): ?>
+                    <a
+                      href="/tiktaktoePHP"
+                      class="bold-upp"
+                      target="_blank">🠒 Jouer
+                    </a>
+                  <?php endif; ?>
+                </div>
               </div>
             </div>
           </article>
