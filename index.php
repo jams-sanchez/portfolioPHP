@@ -115,7 +115,7 @@ $allProjet = $projet->getAllProjets();
                       target="_blank">🠒 Github
                     </a>
                   <?php endif; ?>
-                  <?php if (str_contains(strtolower($info['nom']), "jeu")): ?>
+                  <?php if ($info['nom'] == "Jeu : Tik Tak Toe - PHP"): ?>
                     <a
                       href="/tiktaktoePHP"
                       class="bold-upp"
