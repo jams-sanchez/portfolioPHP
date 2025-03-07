@@ -60,7 +60,7 @@ class Image extends Bdd
         $target_file = $target_dir . basename($imageName);
 
         // récupère l'ancienne image
-        $oldImageStmt = "SELECT image.nom
+        $oldImageStmt = "SELECT image.nom, image.id
         FROM image
         JOIN tech ON tech.image_id = image.id
         WHERE tech.id = :id";
@@ -68,10 +68,12 @@ class Image extends Bdd
         $oldImageStmt->execute([
             ':id' => $techId
         ]);
-        $oldImageName = $oldImageStmt->fetchColumn();
+        $oldImageName = $oldImageStmt->fetchAll(PDO::FETCH_ASSOC);
+        $oldImg = $oldImageName[0]['nom'];
+        $oldImgId = $oldImageName[0]['id'];
 
         // supprime l'ancienne image du dossier
-        $oldFilePath = $target_dir . $oldImageName;
+        $oldFilePath = $target_dir . $oldImg;
         if (file_exists($oldFilePath)) {
             unlink($oldFilePath);
         }
@@ -87,7 +89,7 @@ class Image extends Bdd
                 WHERE id = :id";
                 $imageStmt = $this->bdd->prepare($imageStmt);
                 $imageStmt->execute([
-                    ':id' => $techId,
+                    ':id' => $oldImgId,
                     ':nom' => $imageName,
                     ':type' => $imageType,
                     ':taille' => $imageSize,
@@ -169,14 +171,14 @@ class Image extends Bdd
         }
     }
 
-    // méthode pour modifier l'image d'une tech
-    public function updateImageProjet($projetId, $imageName, $imageType, $imageSize, $imageBin): void
+    // méthode pour modifier l'image d'un projet
+    public function updateImageProjet($projetId, $imageName, $imageType, $imageSize, $imageBin)
     {
         $target_dir = "../assets/img/projets/";
         $target_file = $target_dir . basename($imageName);
 
         // récupère l'ancienne image
-        $oldImageStmt = "SELECT image.nom
+        $oldImageStmt = "SELECT image.nom, image.id
         FROM image
         JOIN projet ON projet.image_id = image.id
         WHERE projet.id = :id";
@@ -184,10 +186,12 @@ class Image extends Bdd
         $oldImageStmt->execute([
             ':id' => $projetId
         ]);
-        $oldImageName = $oldImageStmt->fetchColumn();
+        $oldImageName = $oldImageStmt->fetchAll(PDO::FETCH_ASSOC);
+        $oldImg = $oldImageName[0]['nom'];
+        $oldImgId = $oldImageName[0]['id'];
 
         // supprime l'ancienne image du dossier
-        $oldFilePath = $target_dir . $oldImageName;
+        $oldFilePath = $target_dir . $oldImg;
         if (file_exists($oldFilePath)) {
             unlink($oldFilePath);
         }
@@ -203,7 +207,7 @@ class Image extends Bdd
                 WHERE id = :id";
                 $imageStmt = $this->bdd->prepare($imageStmt);
                 $imageStmt->execute([
-                    ':id' => $projetId,
+                    ':id' => $oldImgId,
                     ':nom' => $imageName,
                     ':type' => $imageType,
                     ':taille' => $imageSize,
