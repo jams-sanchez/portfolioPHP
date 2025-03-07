@@ -343,4 +343,5 @@ if (isset($_POST['deleteProjet'])) {
     </main>
 
     <?php include_once('../include/footer-admin.php'); ?>
+
 <?php endif; ?>

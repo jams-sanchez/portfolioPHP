@@ -38,7 +38,7 @@ class User extends Bdd
             header('location: ../pages/admin.php?page=home');
             exit();
         } else {
-            $_SESSION['erreur'] = 'Pseudo ou mot de passe incorrect';
+            $_SESSION['message'] = 'Pseudo ou mot de passe incorrect';
         }
     }
 
