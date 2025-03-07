@@ -30,7 +30,7 @@ CREATE TABLE image (
 CREATE TABLE projet (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(1000) NOT NULL,
     lien VARCHAR(255),
     image_id INT,
     FOREIGN KEY (image_id) REFERENCES image(id) ON DELETE CASCADE ON UPDATE CASCADE
