@@ -338,6 +338,12 @@ hr {
     color: var(--main-bg-darker)
 }
 
+.project-link {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 /* Footer : Contact */
 
 footer {

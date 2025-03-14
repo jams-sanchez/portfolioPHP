@@ -224,8 +224,8 @@ if (isset($_POST['deleteProjet'])) {
                     <div class="projet-input-tech">
                         <?php foreach ($listTech as $id => $nom): ?>
                             <div class="tech-box">
-                                <input type="checkbox" name="chooseTech[]" id="chooseTech" value="<?= $id ?>">
-                                <label for="chooseTech"><?= $nom ?></label>
+                                <input type="checkbox" name="chooseTech[]" id="<?= $nom ?>" value="<?= $id ?>">
+                                <label for="<?= $nom ?>"><?= $nom ?></label>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -274,7 +274,6 @@ if (isset($_POST['deleteProjet'])) {
                                 <div class="tech-box">
                                     <label for="<?= $nom ?>"><?= $nom ?></label>
                                     <input type="checkbox" name="updateTech[]" id="<?= $nom ?>" value="<?= $id ?>" checked>
-
                                 </div>
                             <?php else: ?>
                                 <div class="tech-box">
