@@ -87,10 +87,11 @@ body {
     background-color: rgba(0, 204, 255, 0);
     width: 60%;
     margin: 0 auto;
-    padding: 1rem 3rem 1rem 2rem;
+    padding: 1rem 3rem 1rem 3rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 3rem;
     border-radius: 10rem;
     border: 3px solid white;
     color: white;
@@ -113,13 +114,13 @@ body {
 
 @media screen and (max-width: 1140px) {
     .click-box {
-        /* width: 90%; */
+        width: 80%;
         height: auto;
     }
 }
 
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 890px) {
 
     .card {
         width: 80vw;

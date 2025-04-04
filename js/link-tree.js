@@ -8,8 +8,10 @@ for (let box of clickBox) {
       window.open("https://james-sanchez.students-laplateforme.io/");
     } else if (box.innerText === "LinkedIn") {
       window.open("https://www.linkedin.com/in/james-sanchez-3a8a80332/");
-    } else {
+    } else if (box.innerText === "Github") {
       window.open("https://github.com/jams-sanchez");
+    } else {
+      window.open("../links-tree/CV-SANCHEZJames.pdf");
     }
   });
 }
