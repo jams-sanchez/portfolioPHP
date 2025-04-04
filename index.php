@@ -25,6 +25,7 @@ $allProjet = $projet->getAllProjets();
     rel="stylesheet" />
   <title>Portfolio - SANCHEZ James</title>
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
 </head>
 
 <body>
